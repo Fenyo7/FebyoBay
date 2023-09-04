@@ -15,5 +15,7 @@ namespace greenBayAPI.Models
         
         [Required]
         public string Email { get; set; }
+
+        public decimal Balance { get; set; } = 0;
     }
 }
