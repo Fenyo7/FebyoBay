@@ -13,6 +13,8 @@
 *.publishsettings
 orleans.codegen.cs
 
+**/obj/
+
 # Rider
 .idea/
 
