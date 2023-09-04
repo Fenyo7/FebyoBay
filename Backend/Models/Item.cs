@@ -18,5 +18,8 @@ namespace greenBayAPI.Models
         
         [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string ImageLink { get; set; }
     }
 }
