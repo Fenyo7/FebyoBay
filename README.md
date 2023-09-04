@@ -25,6 +25,5 @@ _Note: the backend and full-stack functionality will differ slightly in the furt
 
 ## Feature details
 
-- [Backend oriented](backend-spec.md)
 - [Full-stack](full-stack-spec.md)
 
