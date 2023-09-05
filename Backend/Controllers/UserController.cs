@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using greenBayAPI.Models;
 using greenBayAPI.Data;
@@ -6,8 +5,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
@@ -26,37 +23,60 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDTO registerDto)
     {
-        // Check if the user already exists
-        var userExists = await _context.Users.AnyAsync(u => u.Username == registerDto.Username);
-        if (userExists)
-            return BadRequest("Username is taken");
-
-        // Create the new user
-        var user = new User
+        try
         {
-            Username = registerDto.Username,
-            Email = registerDto.Email,
-            Password = registerDto.Password // Note: Hash this password before saving!
-        };
+            // Check if the username already exists
+            var usernameExists = await _context.Users.AnyAsync(
+                u => u.Username == registerDto.Username
+            );
+            if (usernameExists)
+                return BadRequest("Username is taken");
 
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+            // Check if the email already exists
+            var emailExists = await _context.Users.AnyAsync(u => u.Email == registerDto.Email);
+            if (emailExists)
+                return BadRequest("Email is already registered");
 
-        // Optionally: Generate and return a JWT here
+            // Create the new user
+            var user = new User
+            {
+                Username = registerDto.Username,
+                Email = registerDto.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password)
+            };
 
-        return Ok(new { Message = "Registration successful" });
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Registration successful" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(
+                new { Message = "An error occurred during registration.", Details = ex.Message }
+            );
+        }
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDTO loginDto)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
-        if (user == null || user.Password != loginDto.Password) // Note: Compare with hashed password!
-            return Unauthorized("Invalid credentials");
+        try
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
+                return Unauthorized("Invalid credentials");
 
-        // Generate JWT and return it
-        var token = GenerateJwtToken(user);
-        return Ok(new { Token = token });
+            // Generate JWT and return it
+            var token = GenerateJwtToken(user);
+            return Ok(new { Token = token });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(
+                new { Message = "An error occurred during login.", Details = ex.Message }
+            );
+        }
     }
 
     private string GenerateJwtToken(User user)
@@ -73,7 +93,7 @@ public class UserController : ControllerBase
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(1), // Token expiration, adjust as needed
+            Expires = DateTime.Now.AddDays(30), // Token expiration, adjust as needed
             SigningCredentials = creds,
             Issuer = _config["JwtSettings:Issuer"],
             Audience = _config["JwtSettings:Audience"]
