@@ -63,7 +63,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
                 return Unauthorized("Invalid credentials");
 
