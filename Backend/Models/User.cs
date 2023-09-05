@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace greenBayAPI.Models
@@ -17,5 +18,8 @@ namespace greenBayAPI.Models
         public string Email { get; set; }
 
         public decimal Balance { get; set; } = 0;
+
+        // Navigation property
+        public virtual ICollection<Item> Items { get; set; } = new List<Item>();
     }
 }

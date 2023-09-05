@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace greenBayAPI.Models
 {
@@ -9,6 +10,10 @@ namespace greenBayAPI.Models
 
         [Required]
         public int UserId { get; set; }
+
+        // Navigation property
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
         
         [Required]
         public string Name { get; set; }

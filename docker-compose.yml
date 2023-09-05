@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./Backend
+      dockerfile: /Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=greenBayDB;Username=postgres;Password=fenyo
+    depends_on:
+      - database
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: greenBayDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: fenyo
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+# Uncomment this when you have a frontend Dockerfile
+#  frontend:
+#    build:
+#      context: ./path_to_frontend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "3000:3000"
+
+volumes:
+  pgdata:
