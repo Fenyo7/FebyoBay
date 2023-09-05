@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: greenBayDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: fenyo
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   backend:
     build: 
       context: ./Backend
@@ -12,16 +21,7 @@ services:
     depends_on:
       - database
 
-  database:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: greenBayDB
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: fenyo
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-# Uncomment this when you have a frontend Dockerfile
+# Uncomment this when frontend is finished
 #  frontend:
 #    build:
 #      context: ./path_to_frontend
