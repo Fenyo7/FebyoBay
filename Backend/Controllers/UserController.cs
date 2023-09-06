@@ -63,7 +63,9 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
+            var user = await _context.Users.FirstOrDefaultAsync(
+                u => u.Username == loginDto.Username
+            );
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
                 return Unauthorized("Invalid credentials");
 
@@ -77,6 +79,24 @@ public class UserController : ControllerBase
                 new { Message = "An error occurred during login.", Details = ex.Message }
             );
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await _context.Users.ToListAsync();
+        return Ok(users);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        return Ok(user);
     }
 
     private string GenerateJwtToken(User user)
