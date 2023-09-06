@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   database:
@@ -9,25 +9,34 @@ services:
       POSTGRES_PASSWORD: fenyo
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - greenbay-network
 
   backend:
-    build: 
+    build:
       context: ./Backend
-      dockerfile: /Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
       - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=greenBayDB;Username=postgres;Password=fenyo
     depends_on:
       - database
+    networks:
+      - greenbay-network
 
-# Uncomment this when frontend is finished
-#  frontend:
-#    build:
-#      context: ./path_to_frontend
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - greenbay-network
+
+networks:
+  greenbay-network:
+    driver: bridge
 
 volumes:
   pgdata:

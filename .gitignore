@@ -1,4 +1,4 @@
-## .NET Core
+# .NET Core
 *.rsuser
 *.suo
 *.user
@@ -12,85 +12,41 @@
 *.pfx
 *.publishsettings
 orleans.codegen.cs
-
 **/obj/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.cache
+*.swp
+*.swo
+*.sw?
 
-# Rider
+# Rider & JetBrains
 .idea/
 
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Windows image file caches
+# Windows
 Thumbs.db
 ehthumbs.db
-
-# Folder config file
 Desktop.ini
-
-# Recycle Bin used on file shares
 $RECYCLE.BIN/
-
-# VS Code directories
-.vscode/
-
-# Windows Installer files
 *.cab
 *.msi
 *.msm
 *.msp
-
-# Windows shortcuts
 *.lnk
 
-# JetBrains Rider
-.idea/
+# VS Code
+.vscode/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
-
-# .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
 
 # Tye
 .tye/
 
 # Visual Studio for Mac
 .vscode/
-.vscode/
 
-# Rider
-.idea/
-
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# .NET Core
-*.swp
-*.swo
-*.sw?
-
-# Rider
-.idea/
-
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# .NET Core
-*.cache
-*.sw?
-*.sw?
+# Angular
+dist/
+node_modules/
