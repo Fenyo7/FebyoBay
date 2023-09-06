@@ -11,8 +11,8 @@ using greenBayAPI.Data;
 namespace greenBayAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230905012352_UpdatedModels")]
-    partial class UpdatedModels
+    [Migration("20230906111722_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace greenBayAPI.Migrations
                     b.Property<string>("ImageLink")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -26,6 +26,8 @@ namespace greenBayAPI.Models
 
         [Required]
         public string ImageLink { get; set; }
+
+        [Required]
         public bool IsSold { get; set; } = false;
     }
 }

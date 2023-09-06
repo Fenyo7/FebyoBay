@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace greenBayAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedModels : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,8 @@ namespace greenBayAPI.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    ImageLink = table.Column<string>(type: "text", nullable: false)
+                    ImageLink = table.Column<string>(type: "text", nullable: false),
+                    IsSold = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
