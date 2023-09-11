@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ItemListComponent } from './item-list/item-list.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { CreateItemComponent } from './create-item/create-item.component';
+import { LoginComponent } from './components/login/login.component';
+import { ItemListComponent } from './components/item-list/item-list.component';
+import { ItemDetailComponent } from './components/item-detail/item-detail.component';
+import { CreateItemComponent } from './components/create-item/create-item.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

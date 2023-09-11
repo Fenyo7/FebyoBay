@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 interface AuthResponse{
   token: string;
@@ -25,5 +26,12 @@ export class AuthService {
 
   getToken(): string {
     return localStorage.getItem('token') as string;
+  }
+
+  private getAuthHeaders(): HttpHeaders{
+    const token = this.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return headers;
   }
 }
