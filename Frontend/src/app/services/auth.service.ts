@@ -13,10 +13,12 @@ interface AuthResponse{
 
 export class AuthService {
 
+  private baseUrl = 'localhost:5000';
+
   constructor(private http: HttpClient) { }
 
   signIn(username: string, password: string): Observable<any> {
-    const url = 'localhost:5000';
+    const url = this.baseUrl;
     return this.http.post<AuthResponse>(url, { username, password }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
@@ -24,14 +26,12 @@ export class AuthService {
     );
   }
 
-  getToken(): string {
-    return localStorage.getItem('token') as string;
+  register(username: string, password: string): Observable<any> {
+    const url = `${this.baseUrl}/register`;
+    return this.http.post(url, {username, password});
   }
 
-  private getAuthHeaders(): HttpHeaders{
-    const token = this.getToken();
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${token}`);
-    return headers;
+  getToken(): string {
+    return localStorage.getItem('token') as string;
   }
 }
