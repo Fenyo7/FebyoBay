@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { CreateItemComponent } from './create-item/create-item.component'
+import { CreateItemComponent } from './create-item/create-item.component';
 
 @NgModule({
   declarations: [
