@@ -2,7 +2,7 @@
 
 <div class="items-container">
   <div *ngFor="let item of items" class="item-card">
-    <img [src]="item.photoUrl" alt="{{ item.name }}" class="item-image" />
+    <img [src]="item?.imageLink || 'src/assets/image-not-found.png'" alt="{{ item.name }}" class="item-image" />
     <h3>{{ item.name }}</h3>
     <p>Price: {{ item.price }}</p>
     <a [routerLink]="['/item-detail', item.id]">View Details</a>

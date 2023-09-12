@@ -53,30 +53,126 @@ namespace greenBayAPI.Data
                 addedUsers.Add(user1);
                 addedUsers.Add(user2);
             }
+            else 
+            {
+                addedUsers = Users.ToList();
+            }
 
             if (!Items.Any())
             {
-                Items.AddRange(
-                    new Item
-                    {
-                        UserId = addedUsers[0].Id,
-                        Name = "Laptop",
-                        Price = 250000,
-                        Description = "A high-end laptop",
-                        ImageLink = "Dummylink.com"
-                    },
-                    new Item
-                    {
-                        UserId = addedUsers[1].Id,
-                        Name = "Mobile Phone",
-                        Price = 80000,
-                        Description = "A latest model mobile phone",
-                        ImageLink = "Dummylink2.com"
-                    }
-                );
-            }
+                var itemsData = new List<(
+                    string Name,
+                    string Description,
+                    string ImageLink,
+                    decimal Price
+                )>
+                {
+                    (
+                        "Laptop",
+                        "A high-end laptop",
+                        "https://unsplash.com/photos/8pb7Hq539Zw",
+                        250000
+                    ),
+                    (
+                        "Mobile Phone",
+                        "Latest model mobile phone",
+                        "https://unsplash.com/photos/2x19-mRQgX8",
+                        80000
+                    ),
+                    (
+                        "Vacuum Cleaner",
+                        "Powerful vacuum cleaner",
+                        "https://unsplash.com/photos/1K9T5YiZ2WU",
+                        50000
+                    ),
+                    (
+                        "Boat",
+                        "Luxury boat for sailing",
+                        "https://unsplash.com/photos/8xM5bPbpBI4",
+                        5000000
+                    ),
+                    (
+                        "Camera",
+                        "DSLR camera with high resolution",
+                        "https://unsplash.com/photos/6a6ym0j_lax",
+                        150000
+                    ),
+                    (
+                        "Wrist Watch",
+                        "Elegant wrist watch",
+                        "https://unsplash.com/photos/Mv7KkJ04NLg",
+                        20000
+                    ),
+                    (   "Bicycle", 
+                        "Mountain bike", 
+                        "https://unsplash.com/photos/7ZphwmJYNSg", 
+                        45000
+                    ),
+                    (
+                        "Television",
+                        "50-inch 4K UHD TV",
+                        "https://unsplash.com/photos/KuCGlBXjH_o",
+                        300000
+                    ),
+                    (
+                        "Refrigerator",
+                        "Double door refrigerator",
+                        "https://unsplash.com/photos/R8594j3ZLE8",
+                        120000
+                    ),
+                    (
+                        "Microwave Oven",
+                        "Convection microwave oven",
+                        "https://unsplash.com/photos/6ed2QJT4M1I",
+                        40000
+                    ),
+                    (
+                        "Sofa",
+                        "Comfortable 3-seater sofa",
+                        "https://unsplash.com/photos/213ukYSJ6ho",
+                        75000
+                    ),
+                    (   "Guitar", 
+                        "Acoustic guitar", 
+                        "https://unsplash.com/photos/_6HzPU9Hyfg", 
+                        18000
+                    ),
+                    (
+                        "Sneakers",
+                        "Running sneakers",
+                        "https://unsplash.com/photos/8BmNurlVR6M",
+                        12000
+                    ),
+                    (
+                        "Sunglasses",
+                        "UV protected sunglasses",
+                        "https://unsplash.com/photos/_AcUSNQh_go",
+                        5000
+                    ),
+                    (
+                        "Backpack",
+                        "Travel backpack",
+                        "https://unsplash.com/photos/Mf23RF8xArY",
+                        15000
+                    )
+                };
 
-            SaveChanges();
+                foreach (var itemData in itemsData)
+                {
+                    Items.Add(
+                        new Item
+                        {
+                            UserId = addedUsers[new Random().Next(0, 2)].Id, // Randomly assign a user
+                            Name = itemData.Name,
+                            Price = itemData.Price,
+                            Description = itemData.Description,
+                            ImageLink = itemData.ImageLink
+                        }
+                    );
+                }
+
+                SaveChanges();
+            }
         }
     }
 }
