@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'items', component: ItemListComponent },
   { path: 'item/:id', component: ItemDetailComponent },
-  { path: 'create-item', component: CreateItemComponent }
+  { path: 'create-item', component: CreateItemComponent },
+  { path: 'items', component: ItemListComponent },
 ];
 
 @NgModule({

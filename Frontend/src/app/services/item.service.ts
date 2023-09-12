@@ -7,7 +7,7 @@ import { Item } from '../models/item.model';
   providedIn: 'root'
 })
 export class ItemService {
-  private baseUrl = 'localhost:5000';
+  private baseUrl = 'http://localhost:5068/api/Shop';
 
   constructor(private http: HttpClient) { }
 
