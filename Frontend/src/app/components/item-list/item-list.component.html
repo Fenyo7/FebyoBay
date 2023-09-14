@@ -1,10 +1,24 @@
 <app-header></app-header>
 
 <div class="items-container">
-  <div *ngFor="let item of items" class="item-card">
-    <img [src]="item?.imageLink || 'src/assets/image-not-found.png'" alt="{{ item.name }}" class="item-image" />
-    <h3>{{ item.name }}</h3>
-    <p>Price: {{ item.price }}</p>
-    <a [routerLink]="['/item-detail', item.id]">View Details</a>
+  <div *ngFor="let item of items" class="item-card" (click)="toggleItemState(item)">
+    <div *ngIf="item.collapsed">
+      <div class="item-image-container">
+        <img
+          [src]="item?.imageLink || 'path/to/default/image.jpg'"
+          alt="{{ item.name }}"
+          class="item-image"
+        />
+      </div>
+      <div class="item-info">
+        <h3>{{ item.name }}</h3>
+        <p>Price: {{ item.price }}</p>
+      </div>
+    </div>
+    <div *ngIf="!item.collapsed">
+      <app-item-detail></app-item-detail>
+    </div>
   </div>
 </div>
+
+<!-- [routerLink]="['/item-detail', item.id]" -->
