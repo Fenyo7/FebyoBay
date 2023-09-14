@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ItemService } from 'src/app/services/item.service';
 import {
   trigger,
   state,
   style,
   transition,
-  animate,
+  animate
 } from '@angular/animations';
 
 @Component({
@@ -13,49 +13,33 @@ import {
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css'],
   animations: [
-    trigger('expandCollapse', [
-      state(
-        'collapsed',
-        style({
-          height: '150px',
-          overflow: 'hidden',
-        })
-      ),
-      state(
-        'expanded',
-        style({
-          height: '*',
-        })
-      ),
-      transition('collapsed <=> expanded', [animate('0.5s')]),
-    ]),
-  ],
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', animate(200)),
+    ])
+  ]
 })
+
 export class ItemListComponent implements OnInit {
-  items: any[] = [];
+  @Input() items: any[] = [];
+  selectedItem: any = null; // This will hold the currently selected item
 
   constructor(private itemService: ItemService) {}
 
   ngOnInit(): void {
-    this.itemService.getAllItems().subscribe((data) => {
-      this.items = data;
-      this.items.forEach(item => item.collapsed = true);
-    });
+      this.itemService.getAllItems().subscribe((data) => {
+          this.items = data;
+      });
   }
 
-  toggleItemState(item: any) {
-    item.collapsed = !item.collapsed;
-    let index = this.items.findIndex(i => i === item);
-
-    for(let i = 0; i < this.items.length; i++){
-      if(i != index){
-        this.items[i].collapsed = true;
-      }
-    }
+  expandItem(item: any) {
+    this.selectedItem = item;
+    console.log(`selected item: ${this.selectedItem.name}`);
   }
 
-  closeItemDetail(item: any, event: Event) {
-    event.stopPropagation(); // Prevent the click event from bubbling up to the card
-    item.state = 'collapsed';
+  closeItemDetail() {
+    this.selectedItem = null;
   }
 }

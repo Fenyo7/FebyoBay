@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  position: relative;
 }
 
 .item-card {
@@ -11,23 +12,109 @@
   width: 300px;
   display: flex;
   gap: 10px;
+  transition: all 0.5s ease;
+  z-index: 1;
+  position: relative;
+  cursor: pointer; /* Indicate that the card is clickable */
+}
+
+.item-card:hover {
+  background-color: rgba(235, 235, 235);
 }
 
 .item-image-container {
-  flex: 0 0 100px; /* Fixed width for the image container */
-  height: 100px; /* Fixed height for the image container */
-  overflow: hidden; /* Hide any overflowing parts of the image */
+  flex: 0 0 100px;
+  height: 100px;
+  overflow: hidden;
 }
 
 .item-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Resize the image to cover the container without distorting */
+  object-fit: cover;
 }
 
 .item-info {
-  flex: 1; /* Allow the info section to take up the remaining space */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Modal-like structure for the detailed view */
+.item-modal {
+  display: flex;
+  gap: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(-50px);
+  width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.item-modal.selected {
+  transform: translate(-50%, -50%);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.item-image-container {
+  flex: 0 0 150px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buy-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px; /* Space between the description and the buy button */
+}
+
+/* Backdrop to darken the background when modal is open */
+.items-container::after {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.items-container[selected-item]::after {
+  opacity: 1;
+  pointer-events: all;
 }
