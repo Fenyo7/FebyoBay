@@ -6,7 +6,7 @@
   </div>
   <div class="navbar-right">
     <div *ngIf="username">
-      <button (click)="deleteUser()">{{username}}</button>
+      <button routerLink="/account">{{username}}</button>
     </div>
     <div *ngIf="!username">
       <button routerLink="/login">Login</button>
