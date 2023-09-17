@@ -1,14 +1,45 @@
 <app-header></app-header>
 
-<form (ngSubmit)="onSubmit(itemForm.value)" #itemForm="ngForm" class="create-item-form">
+<form
+  (ngSubmit)="onSubmit(itemForm.value)"
+  #itemForm="ngForm"
+  class="create-item-form"
+>
   <div class="form-group">
     <label for="name">Item Name:</label>
     <input type="text" id="name" name="name" ngModel required />
+    <div
+      *ngIf="
+        itemForm.controls['name']?.invalid && itemForm.controls['name']?.touched
+      "
+      class="warning"
+    >
+      Name is required.
+    </div>
   </div>
 
   <div class="form-group">
     <label for="price">Price:</label>
-    <input type="number" id="price" name="price" ngModel required />
+    <input
+      type="number"
+      id="price"
+      name="price"
+      [(ngModel)]="itemPrice"
+      required
+      pattern="^[0-9]*[1-9][0-9]*$"
+    />
+    <div
+      *ngIf="
+        itemForm.controls['price']?.invalid &&
+        itemForm.controls['price']?.touched
+      "
+      class="warning"
+    >
+      Price is required.
+    </div>
+    <div *ngIf="itemForm.controls['price']?.errors?.['pattern']" class="warning">
+      Price must be a positive number.
+    </div>
   </div>
 
   <div class="form-group">

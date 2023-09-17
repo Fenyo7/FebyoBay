@@ -11,6 +11,8 @@ import { AddItemDTO } from 'src/app/models/DTOs/add-item.dto';
 export class CreateItemComponent {
   constructor(private itemService: ItemService, private router: Router) {}
 
+  itemPrice: number = 0;
+
   onSubmit(formValue: any) {
     const userId = 1; // Dummy data until login implemented
 
