@@ -88,4 +88,9 @@ export class AccountComponent implements OnInit {
       );
     }
   }
+
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/items']);
+  }
 }
