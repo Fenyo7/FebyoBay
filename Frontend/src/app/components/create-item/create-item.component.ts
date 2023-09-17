@@ -18,7 +18,7 @@ export class CreateItemComponent {
     const userId = 1; // Dummy data until login implemented
 
     let itemData : AddItemDTO = {
-      UserId: 1,
+      UserId: Number(localStorage.getItem('id')),
       Name: formValue.name,
       Price: formValue.price,
       Description: formValue.description,

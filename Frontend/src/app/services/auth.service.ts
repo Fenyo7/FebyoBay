@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post<AuthResponse>(url, user).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('name', user.Username);
+        if(this.getIdFromToken(response.token) != ""){
+          localStorage.setItem('id', this.getIdFromToken(response.token));
+        }
       })
     );
   }
@@ -34,5 +38,26 @@ export class AuthService {
 
   getToken(): string {
     return localStorage.getItem('token') as string;
+  }
+
+  getIdFromToken(token: string): string {
+    try {
+      // Split the token into header, payload, and signature
+      const tokenParts = token.split('.');
+      if (tokenParts.length !== 3) {
+        return "";
+      }
+  
+      // Decode the payload
+      const decodedPayload = atob(tokenParts[1]);
+      const payloadObj = JSON.parse(decodedPayload);
+      console.log(payloadObj);
+      const userId = payloadObj.nameid;
+  
+      return userId;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return "";
+    }
   }
 }
