@@ -10,7 +10,6 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit(): void {
     this.username = this.getUsername();
-    console.log(this.username);
   }
 
   getUsername(): string | null {

@@ -66,3 +66,13 @@ button {
 button:hover {
     background-color: #c82333;
 }
+
+.cancel {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.cancel:hover {
+    background-color: #e0e0e0;
+}

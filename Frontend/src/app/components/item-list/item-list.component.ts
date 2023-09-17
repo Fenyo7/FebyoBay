@@ -29,7 +29,7 @@ export class ItemListComponent implements OnInit {
   constructor(private itemService: ItemService) {}
 
   ngOnInit(): void {
-      this.itemService.getAllItems().subscribe((data) => {
+      this.itemService.getAllItems().subscribe((data: any) => {
           this.items = data;
       });
   }

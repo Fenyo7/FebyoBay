@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './components/account/account.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AccountComponent } from './components/account/account.component';
     LandingComponent,
     HeaderComponent,
     LoginComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,9 +36,17 @@ import { AccountComponent } from './components/account/account.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+      progressBar: true,
+      newestOnTop: true,
+      tapToDismiss: true,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,22 +1,33 @@
 <app-header></app-header>
 
 <div class="account-container">
-    <h2>Your Account Details</h2>
-    <div class="account-details">
-        <p><strong>Username:</strong> {{ username }}</p>
-        <button (click)="editUsername = !editUsername">Edit Username</button>
-        <div *ngIf="editUsername">
-            <input [(ngModel)]="newUsername" placeholder="New Username">
-            <button (click)="updateUsername()">Save</button>
-        </div>
-        <p><strong>Email:</strong> {{ email }}</p>
-        <button (click)="editEmail = !editEmail">Edit Email</button>
-        <div *ngIf="editEmail">
-            <input [(ngModel)]="newEmail" placeholder="New Email" type="email">
-            <button (click)="updateEmail()">Save</button>
-        </div>
+  <h2>Your Account Details</h2>
+  <div class="account-details">
+    <p><strong>Username:</strong> {{ username }}</p>
+    <button (click)="editUsername = !editUsername">Edit Username</button>
+    <div *ngIf="editUsername">
+      <input [(ngModel)]="newUsername" placeholder="New Username" />
+      <button (click)="updateUsername()">Save</button>
     </div>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <button (click)="editEmail = !editEmail">Edit Email</button>
+    <div *ngIf="editEmail">
+      <input [(ngModel)]="newEmail" placeholder="New Email" type="email" />
+      <button (click)="updateEmail()">Save</button>
+    </div>
+  </div>
 
-    <button (click)="logOut()">Log Out</button>
-    <button (click)="deleteAccount()">Delete Account</button>
+  <button (click)="logOut()">Log Out</button>
+
+  <button (click)="deleteToggle()">Delete Account</button>
+  <div *ngIf="deleteAccountPass">
+    <input
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Enter password"
+      autocomplete="off"
+    />
+    <button (click)="confirmDelete()">Confirm</button>
+    <button (click)="cancelDelete()" class="cancel">Cancel</button>
+  </div>
 </div>
