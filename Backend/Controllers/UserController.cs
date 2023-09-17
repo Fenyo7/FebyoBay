@@ -99,6 +99,53 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    [HttpPut("updateUsername")]
+    public async Task<IActionResult> UpdateUsername(UpdateUsernameDTO updateUsernameDTO)
+    {
+        var user = await _context.Users.FindAsync(updateUsernameDTO.Id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        user.Username = updateUsernameDTO.Username;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "User updated successfully" });
+    }
+
+    [HttpPut("updateEmail")]
+    public async Task<IActionResult> UpdateEmail(UpdateEmailDTO updateEmailDTO)
+    {
+        var user = await _context.Users.FindAsync(updateEmailDTO.Id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        user.Email = updateEmailDTO.Email;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "User updated successfully" });
+    }
+
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "User deleted successfully" });
+    }
+
     private string GenerateJwtToken(User user)
     {
         var claims = new List<Claim>

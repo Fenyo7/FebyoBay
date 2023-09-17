@@ -19,10 +19,8 @@ export class HeaderComponent implements OnInit{
   }
 
   deleteUser(): void {
-    localStorage.removeItem('tokenKey');
     localStorage.removeItem('name');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('id');
     localStorage.removeItem('token');
     this.username = null;
   }

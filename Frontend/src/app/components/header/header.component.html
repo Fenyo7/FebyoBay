@@ -1,7 +1,9 @@
 <nav class="navbar">
   <button routerLink="/">Home</button>
   <button routerLink="/items">Items</button>
-  <button routerLink="/create-item">Sell an Item</button>
+  <div *ngIf="username">
+    <button routerLink="/create-item">Sell an Item</button>
+  </div>
   <div class="navbar-right">
     <div *ngIf="username">
       <button (click)="deleteUser()">{{username}}</button>

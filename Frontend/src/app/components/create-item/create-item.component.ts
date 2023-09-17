@@ -15,7 +15,9 @@ export class CreateItemComponent {
   itemPrice: number = 0;
 
   onSubmit(formValue: any) {
-    const userId = 1; // Dummy data until login implemented
+    if(!Number(localStorage.getItem('id'))) {
+      this.router.navigate(['/login']);
+    }
 
     let itemData : AddItemDTO = {
       UserId: Number(localStorage.getItem('id')),
