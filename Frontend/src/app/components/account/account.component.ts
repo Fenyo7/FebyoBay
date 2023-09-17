@@ -25,6 +25,19 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.id = Number(localStorage.getItem('id')) || 0;
     this.username = localStorage.getItem('name') || '';
+
+    this.userService.getUserById(this.id).subscribe(
+      user => {
+        console.log(user);
+        this.email = user.email;
+        console.log(`email: ${this.email}`);
+      },
+      error => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+
+    
   }
 
   updateUsername() {
@@ -66,9 +79,7 @@ export class AccountComponent implements OnInit {
       this.userService.deleteUser(Number(userId)).subscribe(
         response => {
           console.log('Account deleted successfully');
-          // Clear local storage and navigate to login or home page
           localStorage.clear();
-          // Navigate to items page
           this.router.navigate(['/items']);
         },
         error => {

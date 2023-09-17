@@ -9,7 +9,6 @@
             <input [(ngModel)]="newUsername" placeholder="New Username">
             <button (click)="updateUsername()">Save</button>
         </div>
-
         <p><strong>Email:</strong> {{ email }}</p>
         <button (click)="editEmail = !editEmail">Edit Email</button>
         <div *ngIf="editEmail">

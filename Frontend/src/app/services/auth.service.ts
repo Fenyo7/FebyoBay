@@ -51,7 +51,6 @@ export class AuthService {
       // Decode the payload
       const decodedPayload = atob(tokenParts[1]);
       const payloadObj = JSON.parse(decodedPayload);
-      console.log(payloadObj);
       const userId = payloadObj.nameid;
   
       return userId;
