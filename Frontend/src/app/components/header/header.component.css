@@ -1,20 +1,20 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
   background-color: #333;
   margin-bottom: 20px;
 }
 
-.navbar a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
+.navbar .navbar-left {
+  display: flex;
+  justify-content: left;
 }
 
-.navbar-right {
+.navbar .navbar-right {
   display: flex;
-  align-items: center;
+  justify-content: right;
 }
 
 button {
@@ -26,6 +26,7 @@ button {
   cursor: pointer;
   margin-left: 20px;
   transition: background-color 0.3s ease;
+  margin-right: 10px; /* Adjust this value to your liking */
 }
 
 button:hover {

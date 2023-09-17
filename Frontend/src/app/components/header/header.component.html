@@ -1,12 +1,14 @@
 <nav class="navbar">
-  <button routerLink="/">Home</button>
-  <button routerLink="/items">Items</button>
-  <div *ngIf="username">
-    <button routerLink="/create-item">Sell an Item</button>
+  <div class="navbar-left">
+    <button routerLink="/">Home</button>
+    <button routerLink="/items">Items</button>
+    <div *ngIf="username">
+      <button routerLink="/create-item">Sell an Item</button>
+    </div>
   </div>
   <div class="navbar-right">
     <div *ngIf="username">
-      <button routerLink="/account">{{username}}</button>
+      <button routerLink="/account">{{ username }}</button>
     </div>
     <div *ngIf="!username">
       <button routerLink="/login">Login</button>
