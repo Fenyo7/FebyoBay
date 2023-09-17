@@ -8,6 +8,7 @@ import { AddItemDTO } from 'src/app/models/DTOs/add-item.dto';
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.css'],
 })
+
 export class CreateItemComponent {
   constructor(private itemService: ItemService, private router: Router) {}
 
@@ -17,11 +18,11 @@ export class CreateItemComponent {
     const userId = 1; // Dummy data until login implemented
 
     let itemData : AddItemDTO = {
-      userId: 1,
-      name: formValue.name,
-      price: formValue.price,
-      description: formValue.description,
-      imageLink: formValue.imageLink,
+      UserId: 1,
+      Name: formValue.name,
+      Price: formValue.price,
+      Description: formValue.description,
+      ImageLink: formValue.imageLink,
     }
 
     this.itemService.createItem(itemData).subscribe(

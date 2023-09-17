@@ -81,14 +81,14 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("users")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _context.Users.ToListAsync();
         return Ok(users);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("user/{id}")]
     public async Task<IActionResult> GetUserById(int id)
     {
         var user = await _context.Users.FindAsync(id);

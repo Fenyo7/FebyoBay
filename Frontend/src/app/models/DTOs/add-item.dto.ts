@@ -1,7 +1,7 @@
 export interface AddItemDTO {
-  userId: number;
-  name: string;
-  price: number;
-  description: string;
-  imageLink: string;
+  UserId: number;
+  Name: string;
+  Price: number;
+  Description: string;
+  ImageLink: string;
 }

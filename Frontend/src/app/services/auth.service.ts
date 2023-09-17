@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { loginDTO } from '../models/DTOs/login.dto';
+import { registerDTO } from '../models/DTOs/register.dto';
 
 interface AuthResponse{
   token: string;
@@ -13,22 +14,22 @@ interface AuthResponse{
 
 export class AuthService {
 
-  private baseUrl = 'localhost:5068';
+  private baseUrl = 'http://localhost:5068/api/User'
 
   constructor(private http: HttpClient) { }
 
-  signIn(username: string, password: string): Observable<any> {
-    const url = this.baseUrl;
-    return this.http.post<AuthResponse>(url, { username, password }).pipe(
+  login(user: loginDTO): Observable<any> {
+    const url = `${this.baseUrl}/login`;
+    return this.http.post<AuthResponse>(url, user).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
       })
     );
   }
 
-  register(username: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/register`;
-    return this.http.post(url, {username, password});
+  register(user: registerDTO): Observable<any> {
+    const url = `${this.baseUrl}/register`
+    return this.http.post(url, user);
   }
 
   getToken(): string {
