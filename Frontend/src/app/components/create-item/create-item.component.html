@@ -1,3 +1,25 @@
 <app-header></app-header>
 
-<p>create-item works!</p>
+<form (ngSubmit)="onSubmit(itemForm.value)" #itemForm="ngForm" class="create-item-form">
+  <div class="form-group">
+    <label for="name">Item Name:</label>
+    <input type="text" id="name" name="name" ngModel required />
+  </div>
+
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" ngModel required />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" ngModel required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="imageLink">Image Link:</label>
+    <input type="text" id="imageLink" name="imageLink" ngModel />
+  </div>
+
+  <button type="submit" [disabled]="!itemForm.valid">Create Item</button>
+</form>
