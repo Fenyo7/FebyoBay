@@ -146,8 +146,7 @@ export class ItemListComponent implements OnInit {
   }
 
   editItem(): void {
-    // Implement the edit logic here
-    console.log('Editing item:', this.selectedItem.name);
+    this.router.navigate([`/create-item/${this.selectedItem.id}`]);
   }
 
   deleteItem(): void {

@@ -27,8 +27,18 @@ export class ItemService {
     return this.http.post<Item>(url, item);
   }
   
+  editItem(id: number, item: AddItemDTO): Observable<Item> {
+    const url = `${this.baseUrl}/item/${id}`;
+    return this.http.put<Item>(url, item);
+  }
+
+  deleteItem(id: number): Observable<any> {
+    const url = `${this.baseUrl}/item/${id}`;
+    return this.http.delete(url);
+  }
+
   buyItem(itemId: number): Observable<any> {
     const url = `${this.baseUrl}/buy/${itemId}`;
     return this.http.post(url, {});
-  }  
+  }
 }

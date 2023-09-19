@@ -12,15 +12,14 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'items', component: ItemListComponent },
-  { path: 'item/:id', component: ItemDetailComponent },
+  { path: 'create-item/:id', component: CreateItemComponent },
   { path: 'create-item', component: CreateItemComponent },
-  { path: 'items', component: ItemListComponent },
-  { path: 'register', component: RegisterComponent},
-  { path: 'account', component: AccountComponent}
+  { path: 'register', component: RegisterComponent },
+  { path: 'account', component: AccountComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
