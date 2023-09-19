@@ -43,8 +43,26 @@
         <button class="edit" *ngIf="isUserTheOwner()" (click)="editItem()">
           Edit
         </button>
-        <button class="delete" *ngIf="isUserTheOwner()" (click)="deleteItem()">
+        <button
+          class="delete"
+          *ngIf="isUserTheOwner() && !deleteConfirm"
+          (click)="deleteToggle()"
+        >
           Delete
+        </button>
+        <button
+          class="delete"
+          *ngIf="isUserTheOwner() && deleteConfirm"
+          (click)="deleteItem()"
+        >
+          Confirm
+        </button>
+        <button
+          class="buy"
+          *ngIf="isUserTheOwner() && deleteConfirm"
+          (click)="deleteCancel()"
+        >
+          Cancel
         </button>
       </div>
     </div>

@@ -45,7 +45,7 @@ public class ShopController : ControllerBase
         var item = await _context.Items.FindAsync(id);
         if (item == null)
         {
-            return NotFound("Item not found");
+            return NotFound(new { message = "Item not found" });
         }
         return Ok(item);
     }
@@ -57,12 +57,12 @@ public class ShopController : ControllerBase
 
         if (item == null)
         {
-            return NotFound("Item not found");
+            return NotFound(new { message = "Item not found" });
         }
 
         if (item.IsSold)
         {
-            return BadRequest("Item is already sold");
+            return BadRequest(new { message = "Item is already sold" });
         }
 
         item.IsSold = true;
@@ -79,7 +79,7 @@ public class ShopController : ControllerBase
         var item = await _context.Items.FindAsync(id);
         if (item == null)
         {
-            return NotFound("Item not found");
+            return NotFound(new { message = "Item not found" });
         }
 
         item.Name = itemDto.Name;
@@ -99,12 +99,12 @@ public class ShopController : ControllerBase
         var item = await _context.Items.FindAsync(id);
         if (item == null)
         {
-            return NotFound("Item not found");
+            return NotFound(new { message = "Item not found" });
         }
 
         _context.Items.Remove(item);
         await _context.SaveChangesAsync();
 
-        return Ok("Item deleted successfully");
+        return Ok(new { message = "Item deleted successfully" });
     }
 }

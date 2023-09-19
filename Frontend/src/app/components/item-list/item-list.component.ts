@@ -36,6 +36,7 @@ export class ItemListComponent implements OnInit {
   private userId: number | null = null;
   private userBalance = 0;
   protected deleteConfirm: boolean = false;
+  private confirmDelete: boolean = false;
 
   constructor(
     private itemService: ItemService,
@@ -150,7 +151,42 @@ export class ItemListComponent implements OnInit {
   }
 
   deleteItem(): void {
-    // Implement the delete logic here
-    console.log('Deleting item:', this.selectedItem.name);
+    if (this.deleteConfirm) {
+      this.itemService.deleteItem(this.selectedItem.id).subscribe(
+        (response: any) => {
+          this.toastr.success('Item successfully deleted');
+
+          // Remove the deleted item from the list
+          const index = this.items.findIndex(
+            (item) => item.id === this.selectedItem.id
+          );
+          if (index !== -1) {
+            this.items.splice(index, 1);
+          }
+
+          this.selectedItem = null;
+        },
+        (error: any) => {
+          this.toastr.error('Could not delete item.');
+          console.log(error);
+        }
+      );
+      this.deleteConfirm = false;
+    } else {
+      this.toastr.warning(
+        `Are you sure you want to delete ${this.selectedItem.name} from the shop?`
+      );
+    }
+  }
+
+  deleteToggle(): void {
+    this.deleteConfirm = true;
+    this.toastr.warning(
+      `Are you sure you want to delete ${this.selectedItem.name} from the shop?`
+    );
+  }
+
+  deleteCancel(): void {
+    this.deleteConfirm = false;
   }
 }
