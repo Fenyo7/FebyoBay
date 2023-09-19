@@ -27,8 +27,8 @@ export class ItemService {
     return this.http.post<Item>(url, item);
   }
   
-  buyItem(id: number): Observable<any> {
-    const url = `${this.baseUrl}/buy/${id}`;
+  buyItem(itemId: number): Observable<any> {
+    const url = `${this.baseUrl}/buy/${itemId}`;
     return this.http.post(url, {});
   }  
 }

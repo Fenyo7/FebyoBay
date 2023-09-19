@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { updateEmailDTO } from '../models/DTOs/updateEmail.dto';
 import { updateUsernameDTO } from '../models/DTOs/updateUsername.dto';
+import { updateBalanceDTO } from '../models/DTOs/updateBalance.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +42,10 @@ export class UserService {
   getBalance(userId: number): Observable<any> {
     const url = `${this.baseUrl}/balance/${userId}`;
     return this.http.get(url);
+  }
+
+  updateBalance(updateBalance: updateBalanceDTO): Observable<any> {
+    const url = `${this.baseUrl}/updateBalance`;
+    return this.http.put(url, updateBalance);
   }
 }

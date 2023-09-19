@@ -158,18 +158,18 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("updateBalance")]
-    public async Task<IActionResult> UpdateBalance(int id, int balanceChange)
+    public async Task<IActionResult> UpdateBalance(UpdateBalanceDTO updateBalanceDTO)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users.FindAsync(updateBalanceDTO.UserId);
         if (user == null)
         {
             return NotFound("User not found");
         }
 
-        if(user.Balance + balanceChange < 0){
+        if(user.Balance + updateBalanceDTO.Amount < 0){
             return BadRequest("User doesn't have enough credit");
         } else {
-            user.Balance += balanceChange;
+            user.Balance += updateBalanceDTO.Amount;
         }
 
         await _context.SaveChangesAsync();

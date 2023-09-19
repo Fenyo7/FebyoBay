@@ -4,4 +4,5 @@ export interface Item {
   photoUrl: string;
   price: number;
   sellerId: number;
+  isSold: boolean;
 }

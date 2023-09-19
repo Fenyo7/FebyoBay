@@ -51,7 +51,7 @@ public class ShopController : ControllerBase
     }
 
     [HttpPost("buy/{id}")]
-    public async Task<IActionResult> BuyItem(int id, [FromBody] BuyItemDTO buyItemDto)
+    public async Task<IActionResult> BuyItem(int id)
     {
         var item = await _context.Items.FindAsync(id);
 
@@ -65,22 +65,8 @@ public class ShopController : ControllerBase
             return BadRequest("Item is already sold");
         }
 
-        var buyer = await _context.Users.FindAsync(buyItemDto.BuyerId);
-
-        if (buyer == null)
-        {
-            return NotFound("Buyer not found");
-        }
-
-        if (buyer.Balance < item.Price)
-        {
-            return BadRequest("Not enough money on the buyer's account");
-        }
-
-        buyer.Balance -= item.Price;
         item.IsSold = true;
 
-        _context.Update(buyer);
         _context.Update(item);
         await _context.SaveChangesAsync();
 

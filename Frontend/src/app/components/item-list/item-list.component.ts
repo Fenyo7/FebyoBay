@@ -9,6 +9,9 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
+import { Subscription } from 'rxjs';
+import { updateBalanceDTO } from 'src/app/models/DTOs/updateBalance.dto';
 
 @Component({
   selector: 'app-items-list',
@@ -26,13 +29,19 @@ import { ToastrService } from 'ngx-toastr';
     ]),
   ],
 })
-
 export class ItemListComponent implements OnInit {
   @Input() items: any[] = [];
+  private subscription: Subscription = new Subscription();
   protected selectedItem: any = null; // This will hold the currently selected item
   private userId: number | null = null;
+  private userBalance = 0;
 
-  constructor(private itemService: ItemService, private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private itemService: ItemService,
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.itemService.getAllItems().subscribe((data: any) => {
@@ -50,10 +59,6 @@ export class ItemListComponent implements OnInit {
     this.selectedItem = null;
   }
 
-  navigateToItemDetail(item: any) {
-    this.router.navigate(['/item', item.id]);
-  }
-
   onImageError(event: any): void {
     event.target.src = 'assets/image-not-found.png';
   }
@@ -68,13 +73,51 @@ export class ItemListComponent implements OnInit {
 
   buyItem(): void {
     // If user is not logged in, redirect them to the login page
-    if(!this.userId){
+    this.getUserId();
+    this.getBalance();
+
+    if (!this.userId) {
       this.router.navigate(['/login']);
       this.toastr.warning('You need to be logged in to buy items!');
       return;
     }
-    // Implement the buying logic here 
-    console.log('Buying item:', this.selectedItem.name);
+
+    if (this.selectedItem.price <= this.userBalance) {
+      const updateBalance: updateBalanceDTO = {
+        UserId: this.userId,
+        Amount: this.selectedItem.price,
+      };
+      
+      this.itemService.buyItem(this.selectedItem.id).subscribe(
+        (response: any) => {
+          this.toastr.success(
+            `Successfully purchased ${this.selectedItem.name}!`
+          );
+        },
+        (error: any) => {
+          this.toastr.error('Purchase failed.');
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  getUserId(): number | null {
+    const userData = localStorage.getItem('id');
+    return userData ? Number(userData) : null;
+  }
+
+  getBalance(): void {
+    this.subscription.add(
+      this.userService.getBalance(Number(this.userId)).subscribe(
+        (balance: number) => {
+          this.userBalance = balance;
+        },
+        (error) => {
+          console.error('Error fetching balance:', error);
+        }
+      )
+    );
   }
 
   editItem(): void {
@@ -85,10 +128,5 @@ export class ItemListComponent implements OnInit {
   deleteItem(): void {
     // Implement the delete logic here
     console.log('Deleting item:', this.selectedItem.name);
-  }
-
-  getUserId(): number | null {
-    const userData = localStorage.getItem('id');
-    return userData ? Number(userData) : null;
   }
 }

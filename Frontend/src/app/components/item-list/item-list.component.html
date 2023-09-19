@@ -2,7 +2,7 @@
 
 <div class="items-container">
   <div *ngFor="let item of items" class="item-card" (click)="expandItem(item)">
-    <div class="item-image-container">
+    <div class="item-image-container" *ngIf="!item.isSold">
       <img
         [src]="item?.imageLink"
         (error)="onImageError($event)"
