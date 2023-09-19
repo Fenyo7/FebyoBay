@@ -72,4 +72,39 @@ public class ShopController : ControllerBase
 
         return Ok(item);
     }
+
+    [HttpPut("item/{id}")]
+    public async Task<IActionResult> EditItem(int id, AddItemDTO itemDto)
+    {
+        var item = await _context.Items.FindAsync(id);
+        if (item == null)
+        {
+            return NotFound("Item not found");
+        }
+
+        item.Name = itemDto.Name;
+        item.Price = itemDto.Price;
+        item.Description = itemDto.Description;
+        item.ImageLink = itemDto.ImageLink;
+
+        _context.Update(item);
+        await _context.SaveChangesAsync();
+
+        return Ok(item);
+    }
+
+    [HttpDelete("item/{id}")]
+    public async Task<IActionResult> DeleteItem(int id)
+    {
+        var item = await _context.Items.FindAsync(id);
+        if (item == null)
+        {
+            return NotFound("Item not found");
+        }
+
+        _context.Items.Remove(item);
+        await _context.SaveChangesAsync();
+
+        return Ok("Item deleted successfully");
+    }
 }
