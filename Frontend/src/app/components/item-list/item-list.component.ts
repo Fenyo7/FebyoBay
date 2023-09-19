@@ -30,13 +30,16 @@ import { updateBalanceDTO } from 'src/app/models/DTOs/updateBalance.dto';
   ],
 })
 export class ItemListComponent implements OnInit {
-  @Input() items: any[] = [];
-  private subscription: Subscription = new Subscription();
+  @Input() itemsForSale: any[] = [];
+  @Input() soldItems: any[] = [];
+
   protected selectedItem: any = null; // This will hold the currently selected item
-  private userId: number | null = null;
-  private userBalance = 0;
   protected deleteConfirm: boolean = false;
   protected userName: string = '';
+
+  private subscription: Subscription = new Subscription();
+  private userId: number | null = null;
+  private userBalance = 0;
 
   constructor(
     private itemService: ItemService,
@@ -46,18 +49,25 @@ export class ItemListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.itemService.getAllItems().subscribe((data: any) => {
-      this.items = data;
-    });
+    this.fetchItems();
     this.userId = this.getUserId();
     this.getBalance();
+  }
+
+  fetchItems(): void {
+    this.itemService.getAllItems().subscribe((data: any) => {
+      this.itemsForSale = data.filter((item: any) => !item.isSold);
+      this.soldItems = data.filter((item: any) => item.isSold);
+    });
   }
 
   expandItem(item: any) {
     this.selectedItem = item;
     this.userService.getUserById(this.selectedItem.userId).subscribe((user) => {
-      this.userName = user.username; 
+      this.userName = user.username;
     });
+
+    console.log(this.selectedItem.name);
   }
 
   closeItemDetail() {
@@ -110,13 +120,8 @@ export class ItemListComponent implements OnInit {
             `Successfully purchased ${this.selectedItem.name}!`
           );
 
-          // Remove the purchased item from the list
-          const index = this.items.findIndex(
-            (item) => item.id === this.selectedItem.id
-          );
-          if (index !== -1) {
-            this.items.splice(index, 1);
-          }
+          // Refresh the items lists
+          this.fetchItems();
 
           // Update the balance in the service
           const newBalance = this.userBalance - this.selectedItem.price;
@@ -161,11 +166,11 @@ export class ItemListComponent implements OnInit {
           this.toastr.success('Item successfully deleted');
 
           // Remove the deleted item from the list
-          const index = this.items.findIndex(
+          const index = this.itemsForSale.findIndex(
             (item) => item.id === this.selectedItem.id
           );
           if (index !== -1) {
-            this.items.splice(index, 1);
+            this.itemsForSale.splice(index, 1);
           }
 
           this.selectedItem = null;

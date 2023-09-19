@@ -35,7 +35,7 @@ public class ShopController : ControllerBase
     [HttpGet("items")]
     public async Task<IActionResult> GetAllItems()
     {
-        var items = await _context.Items.Where(i => !i.IsSold).ToListAsync();
+        var items = await _context.Items.ToListAsync();
         return Ok(items);
     }
 

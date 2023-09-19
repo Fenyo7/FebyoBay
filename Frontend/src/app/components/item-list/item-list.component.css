@@ -4,6 +4,7 @@
   gap: 20px;
   justify-content: center;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .item-card {
@@ -146,4 +147,19 @@
   height: 25px;
   cursor: pointer;
   z-index: 1;
+}
+
+/* Sold items */
+
+.sold-items {
+  opacity: 0.5; /* Grey out the sold items */
+}
+
+.sold-text {
+  color: red;
+  font-weight: bold;
+}
+
+.sold-image {
+  filter: grayscale(100%); /* Make the image of sold items grayscale */
 }

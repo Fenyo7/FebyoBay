@@ -1,8 +1,9 @@
 <app-header></app-header>
 
+<!-- List items for sale -->
 <div class="items-container">
-  <div *ngFor="let item of items" class="item-card" (click)="expandItem(item)">
-    <div class="item-image-container" *ngIf="!item.isSold">
+  <div *ngFor="let item of itemsForSale" class="item-card" (click)="expandItem(item)">
+    <div class="item-image-container">
       <img
         [src]="item?.imageLink"
         (error)="onImageError($event)"
@@ -20,7 +21,7 @@
   <div
     [ngClass]="selectedItem ? 'selected' : 'unselected'"
     class="item-modal"
-    *ngIf="selectedItem"
+    *ngIf="selectedItem && !selectedItem.isSold"
     [@fadeInOut]
   >
     <button class="close" (click)="closeItemDetail()">X</button>
@@ -66,6 +67,49 @@
           Cancel
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- List for sold items -->
+<div class="items-container">
+  <div *ngFor="let item of soldItems" class="item-card sold-items" (click)="expandItem(item)">
+    <div class="item-image-container sold-image">
+      <img
+        [src]="item?.imageLink"
+        (error)="onImageError($event)"
+        alt="{{ item.name }}"
+        class="item-image"
+      />
+    </div>
+    <div class="item-info">
+      <h3>{{ item.name }}</h3>
+      <p>Price: {{ formatPrice(item.price) }}</p>
+    </div>
+  </div>
+
+  <!-- Detailed View (Modal-like structure) -->
+  <div
+    [ngClass]="selectedItem ? 'selected' : 'unselected'"
+    class="item-modal"
+    *ngIf="selectedItem && selectedItem.isSold"
+    [@fadeInOut]
+  >
+    <button class="close" (click)="closeItemDetail()">X</button>
+    <div class="item-image-container sold-image">
+      <img
+        [src]="selectedItem.imageLink"
+        (error)="onImageError($event)"
+        alt="{{ selectedItem.name }}"
+        class="item-image"
+      />
+    </div>
+    <div class="item-info">
+      <h3>{{ selectedItem.name }}</h3>
+      <p>Price: {{ formatPrice(selectedItem.price) }}</p>
+      <p>{{ selectedItem.description }}</p>
+      <p class="user-name">Added by: {{ userName }}</p>
+      <p class="sold-text">This item has already been sold.</p>
     </div>
   </div>
 </div>
