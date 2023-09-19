@@ -36,6 +36,7 @@
       <h3>{{ selectedItem.name }}</h3>
       <p>Price: {{ formatPrice(selectedItem.price) }}</p>
       <p>{{ selectedItem.description }}</p>
+      <p class="user-name">Added by: {{ userName }}</p>
       <div>
         <button class="buy" *ngIf="!isUserTheOwner()" (click)="buyItem()">
           Buy

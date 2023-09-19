@@ -36,6 +36,7 @@ export class ItemListComponent implements OnInit {
   private userId: number | null = null;
   private userBalance = 0;
   protected deleteConfirm: boolean = false;
+  protected userName: string = '';
 
   constructor(
     private itemService: ItemService,
@@ -54,6 +55,9 @@ export class ItemListComponent implements OnInit {
 
   expandItem(item: any) {
     this.selectedItem = item;
+    this.userService.getUserById(this.selectedItem.userId).subscribe((user) => {
+      this.userName = user.username; 
+    });
   }
 
   closeItemDetail() {
