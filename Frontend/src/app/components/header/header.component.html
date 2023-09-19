@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="navbar-right">
-    <button class="balance" *ngIf="username">{{ balanceString }}</button>
+    <button class="balance" *ngIf="username">{{ formatPrice(balance) }}</button>
     <div *ngIf="username">
       <button routerLink="/account">{{ username }}</button>
     </div>

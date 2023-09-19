@@ -11,8 +11,7 @@ export class HeaderComponent implements OnInit{
   private subscription: Subscription = new Subscription();
   protected username: string | null = null;
   private id: number | null = null;
-  protected balanceString: string = '0 Ft';
-  private balance: number = 0;
+  protected balance: number = 0;
 
   constructor (private userService: UserService) {}
 
@@ -40,7 +39,6 @@ export class HeaderComponent implements OnInit{
       this.userService.getBalance(this.id ? this.id : 0).subscribe(
         (balance: number) => {
           this.balance = balance;
-          this.updateBalance();
         },
         (error) => {
           console.error('Error fetching balance:', error);
@@ -53,7 +51,7 @@ export class HeaderComponent implements OnInit{
     this.subscription.unsubscribe();
   }
 
-  updateBalance(): void{
-    this.balanceString = this.balance + ' Ft';
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Ft';
   }
 }
