@@ -1,8 +1,10 @@
 using greenBayAPI.Data;
 using greenBayAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ShopController : ControllerBase
@@ -32,6 +34,7 @@ public class ShopController : ControllerBase
         return Ok(item);
     }
 
+    [AllowAnonymous]
     [HttpGet("items")]
     public async Task<IActionResult> GetAllItems()
     {

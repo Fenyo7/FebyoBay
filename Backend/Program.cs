@@ -31,16 +31,39 @@ builder.Services
             ValidAudience = jwtSettings["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
         };
+
+        // Handle authentication failures
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                context.NoResult();
+                context.Response.StatusCode = 401; // Unauthorized
+                context.Response.ContentType = "text/plain";
+                return context.Response.WriteAsync("Invalid token provided.");
+            },
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401; // Unauthorized
+                context.Response.ContentType = "text/plain";
+                return context.Response.WriteAsync(
+                    "You need to provide a valid token to access this."
+                ); 
+            }
+        };
     });
 
 // Add CORS services
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
+    options.AddPolicy(
+        "AllowAllOrigins",
         builder =>
         {
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        });
+        }
+    );
 });
 
 // Add other services to the container.

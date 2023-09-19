@@ -29,7 +29,7 @@ export class CreateItemComponent implements OnInit {
     this.itemId = this.route.snapshot.paramMap.get('id')
       ? Number(this.route.snapshot.paramMap.get('id'))
       : null;
-    console.log(this.itemId);
+      
     if (this.itemId) {
       this.itemService.getItemById(this.itemId).subscribe((data: any) => {
         this.item = data;

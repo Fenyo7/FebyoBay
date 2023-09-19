@@ -37,7 +37,6 @@ export class AccountComponent implements OnInit {
 
     this.userService.getUserById(this.id).subscribe(
       (user: any) => {
-        console.log(user);
         this.email = user.email;
       },
       (error: any) => {

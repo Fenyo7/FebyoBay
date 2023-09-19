@@ -6,7 +6,9 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -20,6 +22,7 @@ public class UserController : ControllerBase
         _config = config;
     }
 
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDTO registerDto)
     {
@@ -58,6 +61,7 @@ public class UserController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDTO loginDto)
     {

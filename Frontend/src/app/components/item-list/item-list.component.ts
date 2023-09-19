@@ -66,8 +66,6 @@ export class ItemListComponent implements OnInit {
     this.userService.getUserById(this.selectedItem.userId).subscribe((user) => {
       this.userName = user.username;
     });
-
-    console.log(this.selectedItem.name);
   }
 
   closeItemDetail() {
