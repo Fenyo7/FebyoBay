@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit{
   protected username: string | null = null;
+  protected balanceString: string = '0 Ft';
+  protected balance: number = 0;
 
   ngOnInit(): void {
     this.username = this.getUsername();

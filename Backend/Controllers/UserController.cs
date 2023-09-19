@@ -146,6 +146,37 @@ public class UserController : ControllerBase
         return Ok(new { Message = "User deleted successfully" });
     }
 
+    [HttpGet("balance/{id}")]
+    public async Task<IActionResult> GetBalanceById(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        return Ok(user.Balance);
+    }
+
+    [HttpPut("updateBalance")]
+    public async Task<IActionResult> UpdateBalance(int id, int balanceChange)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        if(user.Balance + balanceChange < 0){
+            return BadRequest("User doesn't have enough credit");
+        } else {
+            user.Balance += balanceChange;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "User's balance updated successfully" });
+    }
+
     private string GenerateJwtToken(User user)
     {
         var claims = new List<Claim>

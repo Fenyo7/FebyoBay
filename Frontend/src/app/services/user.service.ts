@@ -37,4 +37,9 @@ export class UserService {
     const url = `${this.baseUrl}/delete/${userId}`;
     return this.http.delete(url);
   }
+
+  getBalance(userId: number): Observable<any> {
+    const url = `${this.baseUrl}/balance/${userId}`;
+    return this.http.get(url);
+  }
 }
