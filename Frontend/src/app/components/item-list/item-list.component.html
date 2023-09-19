@@ -4,32 +4,49 @@
   <div *ngFor="let item of items" class="item-card" (click)="expandItem(item)">
     <div class="item-image-container">
       <img
-        [src]="item?.imageLink || 'path/to/default/image.jpg'"
+        [src]="item?.imageLink"
+        (error)="onImageError($event)"
         alt="{{ item.name }}"
         class="item-image"
       />
     </div>
     <div class="item-info">
       <h3>{{ item.name }}</h3>
-      <p>Price: {{ item.price }}</p>
+      <p>Price: {{ formatPrice(item.price) }}</p>
     </div>
   </div>
 
   <!-- Detailed View (Modal-like structure) -->
-  <div [ngClass]="selectedItem ? 'selected':'unselected'" class="item-modal" *ngIf="selectedItem" [@fadeInOut]>
-    <button class="close-btn" (click)="closeItemDetail()">X</button>
+  <div
+    [ngClass]="selectedItem ? 'selected' : 'unselected'"
+    class="item-modal"
+    *ngIf="selectedItem"
+    [@fadeInOut]
+  >
+    <button class="close" (click)="closeItemDetail()">X</button>
     <div class="item-image-container">
       <img
-        [src]="selectedItem?.imageLink || 'path/to/default/image.jpg'"
+        [src]="selectedItem.imageLink"
+        (error)="onImageError($event)"
         alt="{{ selectedItem.name }}"
         class="item-image"
       />
     </div>
     <div class="item-info">
       <h3>{{ selectedItem.name }}</h3>
-      <p>Price: {{ selectedItem.price }}</p>
+      <p>Price: {{ formatPrice(selectedItem.price) }}</p>
       <p>{{ selectedItem.description }}</p>
-      <button class="buy-btn">Buy</button>
+      <div>
+        <button class="buy" *ngIf="!isUserTheOwner()" (click)="buyItem()">
+          Buy
+        </button>
+        <button class="edit" *ngIf="isUserTheOwner()" (click)="editItem()">
+          Edit
+        </button>
+        <button class="delete" *ngIf="isUserTheOwner()" (click)="deleteItem()">
+          Delete
+        </button>
+      </div>
     </div>
-</div>
+  </div>
 </div>

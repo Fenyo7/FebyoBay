@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit{
   protected username: string | null = null;
   private id: number | null = null;
   protected balanceString: string = '0 Ft';
-  protected balance: number = 0;
+  private balance: number = 0;
 
   constructor (private userService: UserService) {}
 
