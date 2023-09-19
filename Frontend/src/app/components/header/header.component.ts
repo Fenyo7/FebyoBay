@@ -22,6 +22,15 @@ export class HeaderComponent implements OnInit{
     if(this.id){
       this.getBalance();
     }
+
+    // Subscribe to the balance$ observable to get real-time updates
+    this.subscription.add(
+      this.userService.balance$.subscribe(
+        (balance: number) => {
+          this.balance = balance;
+        }
+      )
+    );
   }
 
   getUsername(): string | null {

@@ -79,34 +79,53 @@ export class ItemListComponent implements OnInit {
       this.toastr.warning('You need to be logged in to buy items!');
       return;
     }
-  
+
     this.getBalance();
-  
+
     if (this.selectedItem.price > this.userBalance) {
       this.toastr.warning("You don't have enough money on your account!");
       return;
     }
-  
-    const updateBalance: updateBalanceDTO = {
-      UserId: this.userId,
-      Amount: -this.selectedItem.price,
-    };
-  
-    this.userService.updateBalance(updateBalance).pipe(
-      switchMap(() => this.itemService.buyItem(this.selectedItem.id))
-    ).subscribe(
-      (response: any) => {
-        location.reload();
-        this.toastr.success(`Successfully purchased ${this.selectedItem.name}!`);
-        // Update component state or use Angular's change detection here
-      },
-      (error: any) => {
-        this.toastr.error('Purchase failed.');
-        console.log(error);
-      }
-    );
+
+    this.itemService
+      .buyItem(this.selectedItem.id)
+      .pipe(
+        switchMap((response: any) => {
+          // Deduct the item's price from the user's balance
+          const updateBalance: updateBalanceDTO = {
+            UserId: Number(this.userId),
+            Amount: -this.selectedItem.price,
+          };
+          return this.userService.updateBalance(updateBalance);
+        })
+      )
+      .subscribe(
+        (response: any) => {
+          this.toastr.success(
+            `Successfully purchased ${this.selectedItem.name}!`
+          );
+
+          // Remove the purchased item from the list
+          const index = this.items.findIndex(
+            (item) => item.id === this.selectedItem.id
+          );
+          if (index !== -1) {
+            this.items.splice(index, 1);
+          }
+
+          // Update the balance in the service
+          const newBalance = this.userBalance - this.selectedItem.price;
+          this.userService.updateBalanceInService(newBalance);
+
+          // Reset the selected item
+          this.selectedItem = null;
+        },
+        (error: any) => {
+          this.toastr.error('Purchase failed.');
+          console.log(error);
+        }
+      );
   }
-  
 
   getUserId(): number | null {
     const userData = localStorage.getItem('id');

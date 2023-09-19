@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { updateEmailDTO } from '../models/DTOs/updateEmail.dto';
 import { updateUsernameDTO } from '../models/DTOs/updateUsername.dto';
 import { updateBalanceDTO } from '../models/DTOs/updateBalance.dto';
@@ -11,6 +11,8 @@ import { updateBalanceDTO } from '../models/DTOs/updateBalance.dto';
 })
 export class UserService {
   private baseUrl = 'http://localhost:5068/api/User';
+  private balanceSubject = new BehaviorSubject<number>(0);
+  public balance$ = this.balanceSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -47,5 +49,9 @@ export class UserService {
   updateBalance(updateBalance: updateBalanceDTO): Observable<any> {
     const url = `${this.baseUrl}/updateBalance`;
     return this.http.put(url, updateBalance);
+  }
+  
+  updateBalanceInService(newBalance: number): void {
+    this.balanceSubject.next(newBalance);
   }
 }
