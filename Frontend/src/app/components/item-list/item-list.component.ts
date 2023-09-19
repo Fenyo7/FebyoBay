@@ -36,7 +36,6 @@ export class ItemListComponent implements OnInit {
   private userId: number | null = null;
   private userBalance = 0;
   protected deleteConfirm: boolean = false;
-  private confirmDelete: boolean = false;
 
   constructor(
     private itemService: ItemService,
@@ -59,6 +58,7 @@ export class ItemListComponent implements OnInit {
 
   closeItemDetail() {
     this.selectedItem = null;
+    this.deleteConfirm = false;
   }
 
   onImageError(event: any): void {
