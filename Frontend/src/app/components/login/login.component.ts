@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-
 export class LoginComponent {
   loginForm: FormGroup;
 
@@ -27,12 +26,12 @@ export class LoginComponent {
   }
 
   onLogin() {
-    if(!this.loginForm.value.username){
+    if (!this.loginForm.value.username) {
       this.toastr.warning('Please give a username.');
       return;
     }
 
-    if(!this.loginForm.value.password){
+    if (!this.loginForm.value.password) {
       this.toastr.warning('Please give a password.');
       return;
     }
@@ -47,12 +46,25 @@ export class LoginComponent {
         // Store the JWT token
         localStorage.setItem('token', response.token);
         this.toastr.success(`Welcome, ${this.loginForm.value.username}!`);
-        // Navigate to the items or dashboard page
+        // Navigate to the items
         this.router.navigate(['/items']);
       },
       (error: any) => {
-        this.toastr.error('Login failed.')
-        console.log(error);
+        if (error.status === 404) {
+          this.toastr.error('User not found.');
+        } else if (error.status === 401) {
+          this.toastr.error('Wrong password.');
+        } else if (error.status === 400) {
+          this.toastr.error(
+            'An error occurred during login. Please try again later.'
+          );
+          console.error(error.error.Details); // Log the detailed error message
+        } else {
+          this.toastr.error(
+            'An unexpected error occurred. Please try again later.'
+          );
+          console.error(error);
+        }
       }
     );
   }

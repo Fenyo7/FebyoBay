@@ -66,8 +66,10 @@ public class UserController : ControllerBase
             var user = await _context.Users.FirstOrDefaultAsync(
                 u => u.Username == loginDto.Username
             );
-            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
-                return Unauthorized("Invalid credentials");
+            if (user == null)
+                return NotFound("User not found");
+            if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
+                return Unauthorized("Wrong password");
 
             // Generate JWT and return it
             var token = GenerateJwtToken(user);
