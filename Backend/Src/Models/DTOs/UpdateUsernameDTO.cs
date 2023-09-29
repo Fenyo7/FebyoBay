@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+namespace DTOs;
 public class UpdateUsernameDTO
 {
     [Required]

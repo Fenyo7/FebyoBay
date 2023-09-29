@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using DTOs;
 using greenBayAPI.Data;
 using greenBayAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,6 @@ namespace Backend.Test
 
         public void SeedDatabase()
         {
-            // Check if the user already exists
             var existingUser = _context.Users.FirstOrDefault(u => u.Username == "NewUser");
             if (existingUser == null)
             {
@@ -48,10 +48,10 @@ namespace Backend.Test
             _factory = new FactoryOverride();
             using var scope = _factory.Services.CreateScope();
             _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            _context.Database.EnsureCreated(); // Ensure the database is created before each test
-            _context.Database.Migrate(); // Ensure migrations are applied
+            _context.Database.EnsureCreated();
+            _context.Database.Migrate();
 
-            SeedDatabase(); // Seed the database with the user
+            SeedDatabase();
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Backend.Test
             var tokenResponse = JsonSerializer.Deserialize<TokenResponse>(returnedJson);
             if (tokenResponse != null)
             {
-                _authToken = tokenResponse.token; // Make sure the property name matches the one in TokenResponse class
+                _authToken = tokenResponse.token;
             }
             else
             {
@@ -183,7 +183,7 @@ namespace Backend.Test
                 "/api/User/updateUsername",
                 new UpdateUsernameDTO
                 {
-                    Id = 1, // Assuming the user ID is 1 for the registered user
+                    Id = 1,
                     Username = "UpdatedUsername"
                 }
             );
@@ -204,7 +204,7 @@ namespace Backend.Test
                 "/api/User/updateEmail",
                 new UpdateEmailDTO
                 {
-                    Id = 1, // Assuming the user ID is 1 for the registered user
+                    Id = 1,
                     Email = "updated@example.com"
                 }
             );
@@ -221,7 +221,7 @@ namespace Backend.Test
             client.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authToken);
 
-            var response = await client.DeleteAsync("/api/User/delete/1"); // Assuming the user ID is 1 for the registered user
+            var response = await client.DeleteAsync("/api/User/delete/1");
             response.EnsureSuccessStatusCode();
             var returnedJson = await response.Content.ReadAsStringAsync();
             StringAssert.Contains("User deleted successfully", returnedJson);
@@ -235,7 +235,7 @@ namespace Backend.Test
             client.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authToken);
 
-            var response = await client.GetAsync("/api/User/balance/1"); // Assuming the user ID is 1 for the registered user
+            var response = await client.GetAsync("/api/User/balance/1");
             response.EnsureSuccessStatusCode();
             var returnedJson = await response.Content.ReadAsStringAsync();
         }
@@ -252,7 +252,7 @@ namespace Backend.Test
                 "/api/User/updateBalance",
                 new UpdateBalanceDTO
                 {
-                    UserId = 1, // Assuming the user ID is 1 for the registered user
+                    UserId = 1,
                     Amount = 100
                 }
             );
@@ -273,8 +273,8 @@ namespace Backend.Test
                 "/api/User/updateBalance",
                 new UpdateBalanceDTO
                 {
-                    UserId = 1, // Assuming the user ID is 1 for the registered user
-                    Amount = -1000000000 // Assuming this is more than the user's balance
+                    UserId = 1,
+                    Amount = -1000000000
                 }
             );
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);

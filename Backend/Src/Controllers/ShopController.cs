@@ -1,3 +1,4 @@
+using DTOs;
 using greenBayAPI.Data;
 using greenBayAPI.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -93,7 +94,7 @@ public class ShopController : ControllerBase
         _context.Update(item);
         await _context.SaveChangesAsync();
 
-        return Ok(item);
+        return Ok(new { message = "Item updated successfully" });
     }
 
     [HttpDelete("item/{id}")]
