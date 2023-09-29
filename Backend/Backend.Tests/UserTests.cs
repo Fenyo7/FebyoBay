@@ -13,6 +13,13 @@ namespace Backend.Test
         private FactoryOverride _factory;
         private ApplicationDbContext _context;
 
+        public UserControllerTests()
+        {
+            _factory = new FactoryOverride();
+            var scope = _factory.Services.CreateScope();
+            _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        }
+
         [SetUp]
         public void Setup()
         {
