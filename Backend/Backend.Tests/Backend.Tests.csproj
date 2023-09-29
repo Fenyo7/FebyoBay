@@ -18,13 +18,12 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="xunit" Version="2.5.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1"/>
-    <PackageReference Include="coverlet.collector" Version="3.2.0"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend\greenBayAPI.csproj" />
+    <ProjectReference Include="..\Src\greenBayAPI.csproj" />
   </ItemGroup>
 
 </Project>

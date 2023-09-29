@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Backend.Tests")]
-public class Program
+
+public partial class Program
 {
     private static void Main(string[] args)
     {
@@ -82,19 +83,19 @@ public class Program
 
         var app = builder.Build();
 
-        // Filling database with dummy data if it's
-        using (var scope = app.Services.CreateScope())
-        {
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
-            context.SeedData();
-        }
+        // Filling database with dummy data if it's empty
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                context.Database.Migrate();
+                context.SeedData();
+            }
         }
 
         app.UseHttpsRedirection();

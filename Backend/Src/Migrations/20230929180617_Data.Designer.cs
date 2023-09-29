@@ -11,8 +11,8 @@ using greenBayAPI.Data;
 namespace greenBayAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230912111958_newData")]
-    partial class newData
+    [Migration("20230929180617_Data")]
+    partial class Data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
