@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace test;
+namespace Backend.Test;
 
 public class FactoryOverride : WebApplicationFactory<Program>
 {

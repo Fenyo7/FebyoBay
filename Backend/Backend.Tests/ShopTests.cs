@@ -7,7 +7,6 @@ using greenBayAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using test;
 
 namespace Backend.Test
 {
