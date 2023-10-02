@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Item } from '../models/item.model';
 import { AddItemDTO } from '../models/DTOs/add-item.dto';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemService {
-  private baseUrl = 'http://localhost:5068/api/Shop';
+  private baseUrl = `${environment.apiUrl}/Shop`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllItems(): Observable<Item[]> {
     const url = `${this.baseUrl}/items`;
@@ -21,12 +22,12 @@ export class ItemService {
     const url = `${this.baseUrl}/item/${id}`;
     return this.http.get<Item>(url);
   }
-  
-  createItem(item : AddItemDTO): Observable<Item> {
+
+  createItem(item: AddItemDTO): Observable<Item> {
     const url = `${this.baseUrl}/addItem`;
     return this.http.post<Item>(url, item);
   }
-  
+
   editItem(id: number, item: AddItemDTO): Observable<Item> {
     const url = `${this.baseUrl}/item/${id}`;
     return this.http.put<Item>(url, item);

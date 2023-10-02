@@ -5,19 +5,22 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using greenBayAPI.Services;
+using System; // Add this for Environment
 
 [assembly: InternalsVisibleTo("Backend.Tests")]
 
 public partial class Program
 {
-    private static void Main(string[] args)
+    static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         // Register the ApplicationDbContext
+        string defaultConnection =
+            Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")
+            ?? builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<ApplicationDbContext>(
-            options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+            options => options.UseNpgsql(defaultConnection)
         );
 
         // Register the TokenService
@@ -25,6 +28,7 @@ public partial class Program
 
         // JWT Authentication
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+        string jwtKey = Environment.GetEnvironmentVariable("JwtSettings:Key") ?? jwtSettings["Key"];
         builder.Services
             .AddAuthentication(options =>
             {
@@ -41,9 +45,7 @@ public partial class Program
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings["Issuer"],
                     ValidAudience = jwtSettings["Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtSettings["Key"])
-                    )
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
                 };
 
                 // Handle authentication failures

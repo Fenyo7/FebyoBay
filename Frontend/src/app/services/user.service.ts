@@ -5,12 +5,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { updateEmailDTO } from '../models/DTOs/updateEmail.dto';
 import { updateUsernameDTO } from '../models/DTOs/updateUsername.dto';
 import { updateBalanceDTO } from '../models/DTOs/updateBalance.dto';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:5068/api/User';
+  private baseUrl = `${environment.apiUrl}/User`;
   private balanceSubject = new BehaviorSubject<number>(0);
   public balance$ = this.balanceSubject.asObservable();
 
@@ -50,7 +51,7 @@ export class UserService {
     const url = `${this.baseUrl}/updateBalance`;
     return this.http.put(url, updateBalance);
   }
-  
+
   updateBalanceInService(newBalance: number): void {
     this.balanceSubject.next(newBalance);
   }
