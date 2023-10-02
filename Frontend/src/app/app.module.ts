@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
-import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 import { CreateItemComponent } from './components/create-item/create-item.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
@@ -23,7 +22,6 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     AppComponent,
     LoginComponent,
     ItemListComponent,
-    ItemDetailComponent,
     CreateItemComponent,
     RegisterComponent,
     LandingComponent,
