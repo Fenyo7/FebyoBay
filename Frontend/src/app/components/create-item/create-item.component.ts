@@ -3,6 +3,7 @@ import { ItemService } from 'src/app/services/item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddItemDTO } from 'src/app/models/DTOs/add-item.dto';
 import { ToastrService } from 'ngx-toastr';
+import { NotFoundError } from 'rxjs';
 
 @Component({
   selector: 'app-create-item',
@@ -29,15 +30,46 @@ export class CreateItemComponent implements OnInit {
     this.itemId = this.route.snapshot.paramMap.get('id')
       ? Number(this.route.snapshot.paramMap.get('id'))
       : null;
-      
+
     if (this.itemId) {
-      this.itemService.getItemById(this.itemId).subscribe((data: any) => {
-        this.item = data;
-        this.itemName = this.item.name;
-        this.itemPrice = this.item.price;
-        this.itemDescription = this.item.description;
-        this.itemImageLink = this.item.imageLink;
-      });
+      this.itemService.getItemById(this.itemId).subscribe(
+        (data: any) => {
+          if (data) {
+            // If we find the item
+            this.item = data;
+            if (
+              Number(this.item.userId) === Number(localStorage.getItem('id'))
+            ) {
+              // And the item's creator is the current user
+              // Fill up form data with existing item's data
+              this.itemName = this.item.name;
+              this.itemPrice = this.item.price;
+              this.itemDescription = this.item.description;
+              this.itemImageLink = this.item.imageLink;
+            } else {
+              // If the creator is not the current user
+              this.toastr.error('Wrong item.');
+              this.router.navigate(['/create-item']);
+            }
+          } else {
+            // If the item doesn't exist (e.g., empty response)
+            this.toastr.error('Item not found.');
+            this.router.navigate(['/create-item']);
+          }
+        },
+        (error: any) => {
+          if (error.status === 404) {
+            // If the item is not found
+            this.toastr.error('Item not found.');
+            this.router.navigate(['/create-item']);
+          } else {
+            // Other errors
+            this.toastr.error('An error occurred.');
+            this.router.navigate(['/create-item']);
+          }
+          console.log(error);
+        }
+      );
     }
   }
 
@@ -103,7 +135,7 @@ export class CreateItemComponent implements OnInit {
     } else {
       this.itemService.editItem(this.itemId, itemData).subscribe(
         (response: any) => {
-          this.toastr.success('Item succesfully edited');
+          this.toastr.success('Saved changes!');
           this.router.navigate(['/items']);
         },
         (error: any) => {
@@ -115,12 +147,13 @@ export class CreateItemComponent implements OnInit {
   }
 
   isValidImageLink(link: string): boolean {
-    // Regular expression to validate URL format
-    const urlPattern = /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)$/;
+    // Regular expression to validate URL format including those with query parameters
+    const urlPattern =
+      /^(http(s?):)([/|.|\w|\s|-])+(\.(jpg|jpeg|gif|png|svg|bmp|webp))(\?[\w=&]+)?$/;
 
     // Regular expression to validate base64 encoded image data URIs
     const dataUriPattern =
-      /^data:image\/(jpeg|jpg|png|gif);base64,[a-zA-Z0-9+/]+={0,2}$/;
+      /^data:image\/(jpeg|jpg|png|gif|svg|bmp|webp);base64,[a-zA-Z0-9+/]+={0,2}$/;
 
     return urlPattern.test(link) || dataUriPattern.test(link);
   }
