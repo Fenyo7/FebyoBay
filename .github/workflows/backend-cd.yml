@@ -7,6 +7,10 @@ on:
     branches:
       - production
 
+defaults:
+  run:
+    working-directory: Backend
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
