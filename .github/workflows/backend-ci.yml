@@ -4,9 +4,9 @@ on:
   push:
     paths:
       - 'Backend/**'
-    branches: ["master", "production"]
+    branches: ["master", "dev"]
   pull_request:
-    branches: ["master", "production"]
+    branches: ["master", "dev"]
 
 defaults:
   run:

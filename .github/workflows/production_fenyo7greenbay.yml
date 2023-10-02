@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - Fenyo7GreenBay
 on:
   push:
     branches:
-      - production
+      - master
   workflow_dispatch:
 
 jobs:

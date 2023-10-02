@@ -5,7 +5,7 @@ on:
     paths:
       - 'Backend/**'
     branches:
-      - production
+      - master
 
 defaults:
   run:
