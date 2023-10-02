@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using greenBayAPI.Services;
 
 [assembly: InternalsVisibleTo("Backend.Tests")]
 
@@ -18,6 +19,9 @@ public partial class Program
             options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         );
+
+        // Register the TokenService
+        builder.Services.AddScoped<TokenService>();
 
         // JWT Authentication
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");

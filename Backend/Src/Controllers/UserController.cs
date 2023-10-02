@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using DTOs;
+using greenBayAPI.Services;
 
 [Authorize]
 [Route("api/[controller]")]
@@ -16,11 +17,13 @@ public class UserController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _config;
+    private readonly TokenService _tokenService;
 
-    public UserController(ApplicationDbContext context, IConfiguration config)
+    public UserController(ApplicationDbContext context, IConfiguration config, TokenService tokenService)
     {
         _context = context;
         _config = config;
+        _tokenService = tokenService;
     }
 
     [AllowAnonymous]
@@ -77,7 +80,7 @@ public class UserController : ControllerBase
                 return Unauthorized("Wrong password");
 
             // Generate JWT and return it
-            var token = GenerateJwtToken(user);
+            var token = _tokenService.GenerateJwtToken(user);
             return Ok(new { Token = token });
         }
         catch (Exception ex)
@@ -182,31 +185,5 @@ public class UserController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(new { Message = "User's balance updated successfully" });
-    }
-
-    private string GenerateJwtToken(User user)
-    {
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username)
-        };
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(30), // Token expiration, adjust as needed
-            SigningCredentials = creds,
-            Issuer = _config["JwtSettings:Issuer"],
-            Audience = _config["JwtSettings:Audience"]
-        };
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-
-        return tokenHandler.WriteToken(token);
     }
 }
