@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - 'Frontend/**'
-    branches: ["master", "dev"]
+    branches: ["master"]
   pull_request:
     paths:
       - 'Frontend/**'
-    branches: ["master", "dev"]
+    branches: ["master"]
 
 defaults:
   run:

@@ -1,0 +1,34 @@
+name: Frontend CD to Railway
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Frontend/**'
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm install --prefix Frontend
+
+      - name: Build
+        run: npm run build --prefix Frontend
+
+      - name: Deploy to Railway
+        uses: railwayapp/github-action@v1
+        with:
+          apiKey: ${{ secrets.RAILWAY_API_KEY }}
+          projectId: 10fd2921-919e-4bac-8362-ae8b6c1ef6f6
+          environment: production
+          dir: ./Frontend/dist
+      
