@@ -74,7 +74,7 @@ public class ShopController : ControllerBase
         _context.Update(item);
         await _context.SaveChangesAsync();
 
-        return Ok(item); 
+        return Ok(item);
     }
 
     [HttpPut("item/{id}")]
