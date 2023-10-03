@@ -7,7 +7,7 @@ on:
   
 defaults:
   run:
-    working-directory: Backend/Src
+    working-directory: Backend
 
 jobs:
   deploy-backend:
