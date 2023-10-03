@@ -9,13 +9,9 @@ jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
+      - uses: actions/setup-node@v3
         with:
-          dotnet-version: '7.0.x'
+          node-version: "18"
 
       - name: Build and Publish
         run: dotnet build Backend --configuration Release
@@ -26,5 +22,5 @@ jobs:
         with:
           apiKey: ${{ secrets.RAILWAY_API_KEY }}
           projectId: 10fd2921-919e-4bac-8362-ae8b6c1ef6f6
-          environment: production
+          environment: Production
           dir: ./output
