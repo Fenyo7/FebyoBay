@@ -14,8 +14,10 @@ jobs:
           node-version: "18"
 
       - name: Build and Publish
-        run: dotnet build Backend --configuration Release
-             dotnet publish Backend -c Release -o ./output
+        run: |
+            dotnet build Backend --configuration Release
+            dotnet publish Backend -c Release -o ./output
+        
 
       - name: Install Railway CLI
         run: npm install -g railway
