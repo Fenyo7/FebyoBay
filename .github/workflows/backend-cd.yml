@@ -32,6 +32,8 @@ jobs:
         
       - name: Install Railway CLI
         run: npm install -g railway/cli
+        env:
+          GIT_PROTOCOL: https
 
       - name: Login to Railway
         run: railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
