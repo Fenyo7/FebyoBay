@@ -17,10 +17,11 @@ jobs:
         run: dotnet build Backend --configuration Release
              dotnet publish Backend -c Release -o ./output
 
-      - name: Deploy to Railway
-        uses: railwayapp/github-action@v1
-        with:
-          apiKey: ${{ secrets.RAILWAY_API_KEY }}
-          projectId: 10fd2921-919e-4bac-8362-ae8b6c1ef6f6
-          environment: Production
-          dir: ./output
+      - name: Install Railway CLI
+        run: npm install -g railway
+
+      - name: Login to Railway
+        run: railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
+
+      - name: Deploy backend to Railway
+        run: railway up --dir ./output
