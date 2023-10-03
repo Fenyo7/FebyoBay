@@ -1,40 +1,30 @@
-name: Backend CD to Railway
+name: Continous Deployment - Backend - Production
 
 on:
-    push:
-      branches: ["master"]
-    workflow_dispatch:
-  
-defaults:
-  run:
-    working-directory: Backend
+  push:
+    branches: ["master"]
+  workflow_dispatch:
 
 jobs:
-  deploy-backend:
+  build-and-deploy:
+    environment: Production
+    defaults:
+      run:
+        working-directory: ./Backend/Src
+
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '7.0.x'
+      - name: "Checkout Github Action"
+        uses: actions/checkout@master
 
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      - name: Build and Publish
-        run: |
-            dotnet build --configuration Release
-            dotnet publish -c Release -o ./output
-        
-      - name: Install Railway CLI
-        run: npm install -g railway
+      - name: Install railway cli
+        run: npm install -g @railway/cli
 
-      - name: Login to Railway
-        run: railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
-
-      - name: Deploy backend to Railway
-        run: railway up --dir ./output
+      - name: Deploy
+        run: railway up -s backend -e production -d
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_KEY }}
