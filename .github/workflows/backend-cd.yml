@@ -13,6 +13,9 @@ jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Railway CLI
+        run: npm install -g railway/cli
+        
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -29,11 +32,6 @@ jobs:
         run: |
             dotnet build --configuration Release
             dotnet publish -c Release -o ./output
-        
-      - name: Install Railway CLI
-        run: npm install -g railway/cli
-        env:
-          GIT_PROTOCOL: https
 
       - name: Login to Railway
         run: railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
