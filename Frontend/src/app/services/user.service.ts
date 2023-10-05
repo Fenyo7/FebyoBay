@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { updateEmailDTO } from '../models/DTOs/updateEmail.dto';
 import { updateUsernameDTO } from '../models/DTOs/updateUsername.dto';
 import { updateBalanceDTO } from '../models/DTOs/updateBalance.dto';
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 
 
 @Injectable({
