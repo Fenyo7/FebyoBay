@@ -1,24 +1,121 @@
-.wheel-container {
-    position: relative;
-    width: 1000px; /* Replace with the actual width of your wheel images */
-    height: 1000px; /* Replace with the actual height of your wheel images */
+/* Parent container for the wheel and controls */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Takes up the full viewport height */
 }
 
-.outer-wheel, .inner-wheel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.wheel-container {
+  flex: 0 0 60vw; /* Takes up 60% of the viewport width */
+  width: 60vw;
+  padding-bottom: 60vw; /* Adjusts the height proportionally */
+  position: relative;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; /* Spacing between the wheel and the controls */
+  user-select: none;
+  pointer-events: none;
+}
+
+.outer-wheel,
+.inner-wheel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .controls {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex: 1; /* Takes up the remaining space */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns the controls to the left */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.controls label, .controls input, .controls button {
-    margin-bottom: 10px;
+.controls label,
+.controls input {
+  margin-bottom: 15px;
+  width: 200px; /* Adjust as needed */
+}
+
+.controls button {
+  width: 150px; /* Adjust as needed */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px; /* Spacing between buttons */
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+/* Wheel rotation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.inner-wheel-spinning {
+  animation: spin 8s cubic-bezier(0.23, 1, 0.32, 1); /* Custom ease-out */
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 80%; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+.controls label,
+.controls input,
+.controls button {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.controls button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Adjust color as needed */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.controls button:hover {
+  background-color: #0056b3; /* Adjust color as needed */
+}
+
+.controls button:disabled {
+  background-color: #c0c0c0; /* Greyed out background */
+  color: #888; /* Greyed out text */
+  cursor: not-allowed; /* Indicate non-interactivity */
+  opacity: 0.7; /* Slight transparency for a more "disabled" look */
+}
+
+.controls button:disabled {
+  /* ... existing styles ... */
+  pointer-events: none;
 }

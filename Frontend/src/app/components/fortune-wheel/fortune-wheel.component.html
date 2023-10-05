@@ -1,14 +1,24 @@
 <app-header></app-header>
 
-<div class="wheel-container">
-    <img src="../../../assets/wheel-inner.png" alt="Inner Wheel" class="inner-wheel">
-    <img src="../../../assets/wheel-outer.png" alt="Outer Wheel" class="outer-wheel">
-</div>
+<div class="container">
+  <div class="wheel-container">
+    <img
+      src="../../../assets/wheel-inner.png"
+      alt="Inner Wheel"
+      class="inner-wheel"
+    />
+    <img
+      src="../../../assets/wheel-outer.png"
+      alt="Outer Wheel"
+      class="outer-wheel"
+    />
+  </div>
 
-<div class="controls">
+  <div class="controls">
     <label for="wagerAmount">Wager Amount:</label>
-    <input type="number" id="wagerAmount" [(ngModel)]="wagerAmount" min="0">
+    <input type="number" id="wagerAmount" [(ngModel)]="wagerAmount" min="0" />
 
-    <button (click)="spinWheel()">Spin Wheel</button>
-    <button (click)="regainMoney()">Regain Money</button>
+    <button [disabled]="isSpinning" (click)="onSpinWheelClick()">Spin Wheel</button>
+    <button [disabled]="isSpinning" (click)="onRegainMoneyClick()">Gimme money!</button>
+  </div>
 </div>

@@ -199,15 +199,8 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("spinWheel")]
-    public async Task<IActionResult> SpinWheel(int UserId)
+    public async Task<IActionResult> SpinWheel()
     {
-        var user = await _context.Users.FindAsync(UserId);
-
-        if (user == null)
-        {
-            return NotFound("User not found");
-        }
-
         // Use the FortuneWheelService to get the outcome.
         int selectedSegment = _fortuneWheelService.SpinWheel();
 
