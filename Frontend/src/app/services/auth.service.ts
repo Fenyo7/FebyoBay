@@ -3,7 +3,7 @@ import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { loginDTO } from '../models/DTOs/login.dto';
 import { registerDTO } from '../models/DTOs/register.dto';
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environments.development';
 
 interface AuthResponse {
   token: string;

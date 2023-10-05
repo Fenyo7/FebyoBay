@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5068/api' // Development API endpoint
+  production: true,
+  apiUrl: 'https://backend-production-29d7.up.railway.app/api', // Whatever the product backend API URL will be
 };

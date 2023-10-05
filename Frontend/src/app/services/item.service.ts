@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Item } from '../models/item.model';
 import { AddItemDTO } from '../models/DTOs/add-item.dto';
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environments.development';
 
 @Injectable({
   providedIn: 'root',
