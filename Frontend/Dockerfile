@@ -1,13 +1,13 @@
-# Step 1: Build the Angular application in a node environment
-FROM node:16 AS build
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build --prod
+FROM node:18.16.0 AS build
 
-# Step 2: Serve the Angular application from Nginx
-FROM nginx:alpine
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+WORKDIR /usr/local/app
+COPY  ./ /usr/local/app
+
+RUN npm install
+RUN npm run build
+
+FROM nginx:alpine AS ngi
+COPY --from=build /usr/local/app/dist/frontend /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]

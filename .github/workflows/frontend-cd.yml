@@ -1,0 +1,31 @@
+name: Continous Deployment - Frontend - Production
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    environment: Production
+    defaults:
+      run:
+        working-directory: ./Frontend
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Github Action"
+        uses: actions/checkout@master
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install railway cli
+        run: npm install -g @railway/cli
+
+      - name: Deploy
+        run: railway up -s frontend -e production -d
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_KEY }}
+          RAILWAY_DOCKERFILE_PATH: Dockerfile.production
