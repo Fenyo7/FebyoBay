@@ -19,11 +19,19 @@ public class UserController : ControllerBase
     private readonly IConfiguration _config;
     private readonly TokenService _tokenService;
 
-    public UserController(ApplicationDbContext context, IConfiguration config, TokenService tokenService)
+    private readonly FortuneWheelService _fortuneWheelService;
+
+    public UserController(
+        ApplicationDbContext context,
+        IConfiguration config,
+        TokenService tokenService,
+        FortuneWheelService fortuneWheelService
+    )
     {
         _context = context;
         _config = config;
         _tokenService = tokenService;
+        _fortuneWheelService = fortuneWheelService;
     }
 
     [AllowAnonymous]
@@ -176,14 +184,33 @@ public class UserController : ControllerBase
             return NotFound("User not found");
         }
 
-        if(user.Balance + updateBalanceDTO.Amount < 0){
+        if (user.Balance + updateBalanceDTO.Amount < 0)
+        {
             return BadRequest("User doesn't have enough credit");
-        } else {
+        }
+        else
+        {
             user.Balance += updateBalanceDTO.Amount;
         }
 
         await _context.SaveChangesAsync();
 
         return Ok(new { Message = "User's balance updated successfully" });
+    }
+
+    [HttpPost("spinWheel")]
+    public async Task<IActionResult> SpinWheel(int UserId)
+    {
+        var user = await _context.Users.FindAsync(UserId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        // Use the FortuneWheelService to get the outcome.
+        int selectedSegment = _fortuneWheelService.SpinWheel();
+
+        return Ok(new { SelectedSegment = selectedSegment });
     }
 }
