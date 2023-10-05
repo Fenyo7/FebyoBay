@@ -22,6 +22,10 @@ artifacts/
 *.sw?
 Backend/appsettings.Development.json
 
+# Backend bin folder
+*bin
+*bin/*
+
 # Rider & JetBrains
 .idea/
 
