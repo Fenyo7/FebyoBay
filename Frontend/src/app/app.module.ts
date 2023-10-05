@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './components/account/account.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { FortuneWheelComponent } from './components/fortune-wheel/fortune-wheel.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     HeaderComponent,
     LoginComponent,
     AccountComponent,
+    FortuneWheelComponent,
   ],
   imports: [
     BrowserModule,

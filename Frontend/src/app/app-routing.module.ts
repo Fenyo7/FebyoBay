@@ -6,6 +6,7 @@ import { CreateItemComponent } from './components/create-item/create-item.compon
 import { LandingComponent } from './components/landing/landing.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AccountComponent } from './components/account/account.component';
+import { FortuneWheelComponent } from './components/fortune-wheel/fortune-wheel.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'create-item', component: CreateItemComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'wheel', component: FortuneWheelComponent},
 ];
 
 @NgModule({

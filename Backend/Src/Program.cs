@@ -25,6 +25,7 @@ public partial class Program
 
         // Register the TokenService
         builder.Services.AddScoped<TokenService>();
+        builder.Services.AddScoped<FortuneWheelService>();
 
         // JWT Authentication
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");

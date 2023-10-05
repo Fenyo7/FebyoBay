@@ -56,4 +56,9 @@ export class UserService {
   updateBalanceInService(newBalance: number): void {
     this.balanceSubject.next(newBalance);
   }
+
+  spinWheel(): Observable<any> {
+    const url = `${this.baseUrl}/spinWheel`;
+    return this.http.post(url, {});
+  }
 }

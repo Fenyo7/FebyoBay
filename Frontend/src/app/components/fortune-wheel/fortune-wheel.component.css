@@ -1,0 +1,24 @@
+.wheel-container {
+    position: relative;
+    width: 1000px; /* Replace with the actual width of your wheel images */
+    height: 1000px; /* Replace with the actual height of your wheel images */
+}
+
+.outer-wheel, .inner-wheel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls label, .controls input, .controls button {
+    margin-bottom: 10px;
+}
