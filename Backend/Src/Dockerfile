@@ -1,8 +1,8 @@
 # Use the SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+WORKDIR /Src
 COPY . .
-RUN ls -al /src
+RUN ls -al /Src
 RUN dotnet restore ./Src/greenBayAPI.csproj
 RUN dotnet publish ./Src/greenBayAPI.csproj -c Release -o /app/publish
 
