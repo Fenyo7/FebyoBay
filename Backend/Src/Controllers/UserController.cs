@@ -199,7 +199,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("spinWheel")]
-    public async Task<IActionResult> SpinWheel()
+    public IActionResult SpinWheel()
     {
         // Use the FortuneWheelService to get the outcome.
         int selectedSegment = _fortuneWheelService.SpinWheel();

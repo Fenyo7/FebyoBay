@@ -3,21 +3,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Takes up the full viewport height */
+  height: 100vh;
+  flex-wrap: wrap;
 }
 
 .wheel-container {
-  flex: 0 0 60vw; /* Takes up 60% of the viewport width */
-  width: 60vw;
-  padding-bottom: 60vw; /* Adjusts the height proportionally */
+  width: 60vh;
+  max-width: 100%;
+  padding-bottom: 60vh; /* This maintains the aspect ratio */
   position: relative;
   border: 2px solid #333;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 20px; /* Spacing between the wheel and the controls */
+  margin-right: 20px;
+  margin-bottom: 20px;
   user-select: none;
   pointer-events: none;
 }
+
+/* Media query for screens where width is less than height */
+@media (max-aspect-ratio: 1/1) {
+  .wheel-container {
+    width: 60vw;
+    padding-bottom: 60vw; /* Adjust padding for portrait mode */
+  }
+}
+
+/* Media query for smaller screens (e.g., mobile) */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .wheel-container {
+    margin-right: 0;
+  }
+}
+
+/* ... rest of your CSS remains unchanged ... */
 
 .outer-wheel,
 .inner-wheel {
@@ -37,6 +60,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 250px; /* Adjust this value to your preference for wide mode */
 }
 
 .controls label,

@@ -30,7 +30,17 @@ export class FortuneWheelComponent {
   }
 
   onSpinWheelClick(): void {
+    if(this.wagerAmount <= 0){
+      this.toastr.warning('Please put in a valid amount!');
+      return;
+    }
+
     this.userService.spinWheel().subscribe((response) => {
+      this.updateUserBalance(-this.wagerAmount);
+      if (this.wagerAmount > this.userBalance) {
+        this.toastr.warning("You don't have this much money! :(");
+        return;
+      }
       this.isSpinning = true;
       const segmentId = response.selectedSegment;
       const segmentDegree = 360 / 10; // For 10 segments
@@ -58,10 +68,34 @@ export class FortuneWheelComponent {
           this.toastr.warning('You lost your wager!');
         } else {
           this.toastr.success(`You won ${multiplier}x!`);
+          this.updateUserBalance(outcome); // Use the updateUserBalance method to add the prize
         }
         this.isSpinning = false;
       }, 8000);
     });
+  }
+
+  updateUserBalance(amount: number): void {
+    const dto: updateBalanceDTO = {
+      UserId: Number(this.userId),
+      Amount: amount,
+    };
+
+    this.userService.updateBalance(dto).subscribe(
+      (response) => {
+        if (response.message === "User's balance updated successfully") {
+          this.userBalance += amount; // Update the local balance
+          this.userService.updateBalanceInService(this.userBalance);
+        } else {
+          this.toastr.error('Something went wrong!');
+          console.error('Unexpected response:', response.message);
+        }
+      },
+      (error) => {
+        this.toastr.error('Error updating balance!');
+        console.error('Error updating balance:', error);
+      }
+    );
   }
 
   onRegainMoneyClick(): void {
@@ -91,6 +125,7 @@ export class FortuneWheelComponent {
       this.userService.getBalance(Number(this.userId)).subscribe(
         (balance: number) => {
           this.userBalance = balance;
+          console.log(balance);
         },
         (error) => {
           console.error('Error fetching balance:', error);
