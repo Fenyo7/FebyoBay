@@ -5,6 +5,10 @@ on:
     branches: ["master"]
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: Backend
+
 jobs:
   CI:
     name: Test and build
