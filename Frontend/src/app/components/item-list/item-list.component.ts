@@ -51,7 +51,9 @@ export class ItemListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchItems();
     this.userId = this.getUserId();
-    this.getBalance();
+    if (this.userId != null) {
+      this.getBalance();
+    }
   }
 
   fetchItems(): void {
@@ -62,6 +64,13 @@ export class ItemListComponent implements OnInit {
   }
 
   expandItem(item: any) {
+    this.userId = this.getUserId();
+    if (!this.userId) {
+      this.router.navigate(['/login']);
+      this.toastr.warning('You need to be logged in to see the details of items!');
+      return;
+    }
+
     this.selectedItem = item;
     this.userService.getUserById(this.selectedItem.userId).subscribe((user) => {
       this.userName = user.username;
