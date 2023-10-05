@@ -96,18 +96,22 @@ public partial class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
-            using (var scope = app.Services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                context.Database.Migrate();
-                context.SeedData();
-            }
+        }
+        
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            context.Database.Migrate();
+            context.SeedData();
         }
 
         app.UseHttpsRedirection();
 
         // Use CORS policy before Authentication and Authorization
         app.UseCors("AllowAllOrigins");
+
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "5001";
+        builder.WebHost.UseUrls($"http://*:{port}");
 
         app.UseAuthentication();
 
