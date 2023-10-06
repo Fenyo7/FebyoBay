@@ -33,3 +33,5 @@ I hope you have fun here, even if there's not much to do.
 The application's backend is a JSON-based Web API, and the frontend is developed using Angular. Authentication is secured using JWT tokens, and data is stored in a relational database.
 
 This is a demo project made by Levente Fenyvesi, with love.
+
+Railway link: [Deployed App](https://frontend-production-ab2f.up.railway.app)
