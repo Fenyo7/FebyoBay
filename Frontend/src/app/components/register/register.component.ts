@@ -63,8 +63,7 @@ export class RegisterComponent {
       this.authService.register(user).subscribe(
         (response: any) => {
           this.toastr.success(
-            `Successful registration! Welcome, 
-            ${this.registerForm.value.username}!`
+            `Successful registration! Please log in to continue!`
           );
           this.router.navigate(['/login']);
         },

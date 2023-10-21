@@ -68,7 +68,7 @@ export class FortuneWheelComponent {
           this.toastr.warning('You lost your wager!');
         } else {
           this.toastr.success(`You won ${multiplier}x!`);
-          this.updateUserBalance(outcome); // Use the updateUserBalance method to add the prize
+          this.updateUserBalance(outcome);
         }
         this.isSpinning = false;
       }, 8000);
@@ -112,6 +112,7 @@ export class FortuneWheelComponent {
     };
     this.userService.updateBalance(dto).subscribe((response) => {
       this.toastr.success(`You now have ${dto.Amount} Ft!`);
+      this.updateUserBalance(10000);
     });
   }
 

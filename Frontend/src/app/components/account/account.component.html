@@ -1,33 +1,102 @@
 <app-header></app-header>
 
 <div class="account-container">
-  <h2>Your Account Details</h2>
-  <div class="account-details">
-    <p><strong>Username:</strong> {{ username }}</p>
-    <button (click)="editUsername = !editUsername">Edit Username</button>
-    <div *ngIf="editUsername">
-      <input [(ngModel)]="newUsername" placeholder="New Username" />
-      <button (click)="updateUsername()">Save</button>
-    </div>
-    <p><strong>Email:</strong> {{ email }}</p>
-    <button (click)="editEmail = !editEmail">Edit Email</button>
-    <div *ngIf="editEmail">
-      <input [(ngModel)]="newEmail" placeholder="New Email" type="email" />
-      <button (click)="updateEmail()">Save</button>
-    </div>
-  </div>
+  <!-- Username Card -->
+  <mat-card class="account-card">
+    <mat-card-header>
+      <mat-card-title>Username</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Current:</strong> {{ username }}</p>
+      <button
+        mat-button
+        color="primary"
+        (click)="editUsername = !editUsername"
+        *ngIf="!editUsername"
+      >
+        Edit
+      </button>
+      <div *ngIf="editUsername" class="edit-container">
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            [(ngModel)]="newUsername"
+            placeholder="New Username"
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="updateUsername()">
+          Save
+        </button>
+        <button mat-raised-button color="accent" (click)="editUsername = false">
+          Cancel
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-  <button (click)="logOut()">Log Out</button>
+  <!-- Email Card -->
+  <mat-card class="account-card">
+    <mat-card-header>
+      <mat-card-title>Email</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Current:</strong> {{ email }}</p>
+      <button
+        mat-button
+        color="primary"
+        (click)="editEmail = !editEmail"
+        *ngIf="!editEmail"
+      >
+        Edit
+      </button>
+      <div *ngIf="editEmail" class="edit-container">
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            [(ngModel)]="newEmail"
+            placeholder="New Email"
+            type="email"
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="updateEmail()">
+          Save
+        </button>
+        <button mat-raised-button color="accent" (click)="editEmail = false">
+          Cancel
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-  <button (click)="deleteToggle()">Delete Account</button>
-  <div *ngIf="deleteAccountPass">
-    <input
-      [(ngModel)]="password"
-      type="password"
-      placeholder="Enter password"
-      autocomplete="off"
-    />
-    <button (click)="confirmDelete()">Confirm</button>
-    <button (click)="cancelDelete()" class="cancel">Cancel</button>
-  </div>
+  <!-- Account Actions -->
+  <mat-card class="account-card">
+    <mat-card-header>
+      <mat-card-title>Account Actions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="account-actions">
+      <button mat-raised-button color="accent" (click)="logOut()">
+        Log Out
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteToggle()">
+        Delete Account
+      </button>
+      <div *ngIf="deleteAccountPass" class="edit-container">
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            [(ngModel)]="password"
+            type="password"
+            placeholder="Enter password"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <button mat-raised-button color="warn" (click)="confirmDelete()">
+          Confirm
+        </button>
+        <button mat-raised-button color="accent" (click)="cancelDelete()">
+          Cancel
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
