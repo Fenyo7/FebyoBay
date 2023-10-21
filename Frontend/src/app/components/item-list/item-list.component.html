@@ -2,7 +2,11 @@
 
 <!-- List items for sale -->
 <div class="items-container">
-  <div *ngFor="let item of itemsForSale" class="item-card" (click)="expandItem(item)">
+  <div
+    *ngFor="let item of itemsForSale"
+    class="item-card"
+    (click)="expandItem(item)"
+  >
     <div class="item-image-container">
       <img
         [src]="item?.imageLink"
@@ -24,7 +28,6 @@
     *ngIf="selectedItem && !selectedItem.isSold"
     [@fadeInOut]
   >
-    <button class="close" (click)="closeItemDetail()">X</button>
     <div class="item-image-container">
       <img
         [src]="selectedItem.imageLink"
@@ -39,13 +42,27 @@
       <p>{{ selectedItem.description }}</p>
       <p class="user-name">Added by: {{ userName }}</p>
       <div>
-        <button class="buy" *ngIf="!isUserTheOwner()" (click)="buyItem()">
+        <button
+          mat-raised-button
+          color="primary"
+          class="buy"
+          *ngIf="!isUserTheOwner()"
+          (click)="buyItem()"
+        >
           Buy
         </button>
-        <button class="edit" *ngIf="isUserTheOwner()" (click)="editItem()">
+        <button
+          mat-raised-button
+          color="accent"
+          class="edit"
+          *ngIf="isUserTheOwner()"
+          (click)="editItem()"
+        >
           Edit
         </button>
         <button
+          mat-raised-button
+          color="warn"
           class="delete"
           *ngIf="isUserTheOwner() && !deleteConfirm"
           (click)="deleteToggle()"
@@ -53,6 +70,8 @@
           Delete
         </button>
         <button
+          mat-raised-button
+          color="warn"
           class="delete"
           *ngIf="isUserTheOwner() && deleteConfirm"
           (click)="deleteItem()"
@@ -60,6 +79,8 @@
           Confirm
         </button>
         <button
+          mat-raised-button
+          color="primary"
           class="buy"
           *ngIf="isUserTheOwner() && deleteConfirm"
           (click)="deleteCancel()"
@@ -68,12 +89,24 @@
         </button>
       </div>
     </div>
+    <button
+      mat-icon-button
+      color="warn"
+      class="close"
+      (click)="closeItemDetail()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </div>
 
 <!-- List for sold items -->
 <div class="items-container">
-  <div *ngFor="let item of soldItems" class="item-card sold-items" (click)="expandItem(item)">
+  <div
+    *ngFor="let item of soldItems"
+    class="item-card sold-items"
+    (click)="expandItem(item)"
+  >
     <div class="item-image-container sold-image">
       <img
         [src]="item?.imageLink"
@@ -95,7 +128,6 @@
     *ngIf="selectedItem && selectedItem.isSold"
     [@fadeInOut]
   >
-    <button class="close" (click)="closeItemDetail()">X</button>
     <div class="item-image-container sold-image">
       <img
         [src]="selectedItem.imageLink"
@@ -111,5 +143,13 @@
       <p class="user-name">Added by: {{ userName }}</p>
       <p class="sold-text">This item has already been sold.</p>
     </div>
+    <button
+      mat-icon-button
+      color="warn"
+      class="close"
+      (click)="closeItemDetail()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </div>

@@ -4,7 +4,7 @@
   gap: 20px;
   justify-content: center;
   position: relative;
-  margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 .item-card {
@@ -56,6 +56,7 @@
   z-index: 10;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  max-width: 80%;
 }
 
 .item-modal.selected {
@@ -96,57 +97,9 @@
   pointer-events: all;
 }
 
-/* Common styles for both Edit and Delete buttons */
-.edit,
-.delete,
-.buy {
-  padding: 5px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
+button {
   margin-right: 10px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  color: white;
-}
-
-.edit {
-  background-color: #ffa500;
-}
-
-.edit:hover {
-  background-color: #ff8c00;
-}
-
-.delete {
-  background-color: #ff4d4d;
-}
-
-.delete:hover {
-  background-color: #ff1a1a;
-}
-
-.buy {
-  background-color: #4caf50;
-}
-
-.buy:hover {
-  background-color: #3fa06b;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  z-index: 1;
+  margin-bottom: 10px;
 }
 
 /* Sold items */
