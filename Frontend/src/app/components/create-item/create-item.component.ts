@@ -13,6 +13,7 @@ import { NotFoundError } from 'rxjs';
 export class CreateItemComponent implements OnInit {
   protected itemId: number | null = null;
   private item: any;
+  private isValidImageLink: boolean = true;
 
   itemName: string = '';
   itemPrice: number = 0;
@@ -107,7 +108,7 @@ export class CreateItemComponent implements OnInit {
           'Please provide a link for the image of your item.'
         );
         return;
-      } else if (!this.isValidImageLink(this.itemImageLink)) {
+      } else if (!this.isValidImageLink) {
         this.toastr.warning('Please provide a valid picture link.');
         return;
       }
@@ -146,7 +147,17 @@ export class CreateItemComponent implements OnInit {
     }
   }
 
-  isValidImageLink(link: string): boolean {
+  onImageError(event: any): void {
+    event.target.src = 'assets/image-not-found.png';
+    this.isValidImageLink = false;
+  }
+  
+  onImageLoad(event: any): void {
+    this.isValidImageLink = true;
+  }  
+
+  // Obsolete image link validation
+  /* isValidImageLink(link: string): boolean {
     // Regular expression to validate URL format including those with query parameters
     const urlPattern =
       /^(http(s?):)([/|.|\w|\s|-])+(\.(jpg|jpeg|gif|png|svg|bmp|webp))(\?[\w=&]+)?$/;
@@ -156,5 +167,5 @@ export class CreateItemComponent implements OnInit {
       /^data:image\/(jpeg|jpg|png|gif|svg|bmp|webp);base64,[a-zA-Z0-9+/]+={0,2}$/;
 
     return urlPattern.test(link) || dataUriPattern.test(link);
-  }
+  } */ 
 }

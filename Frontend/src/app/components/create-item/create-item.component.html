@@ -1,39 +1,45 @@
 <app-header></app-header>
 
-<form
-  (ngSubmit)="onSubmit()"
-  #itemForm="ngForm"
-  class="create-item-form"
->
-  <div class="form-group">
-    <label for="name">Item Name:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="itemName" />
-  </div>
+<form (ngSubmit)="onSubmit()" #itemForm="ngForm" class="create-item-form">
+  <mat-form-field class="form-group">
+    <mat-label>Item Name</mat-label>
+    <input matInput type="text" name="name" [(ngModel)]="itemName" />
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="price">Price:</label>
-    <input type="number" id="price" name="price" [(ngModel)]="itemPrice" />
-  </div>
+  <mat-form-field class="form-group">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" name="price" [(ngModel)]="itemPrice" />
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="description">Description:</label>
+  <mat-form-field class="form-group">
+    <mat-label>Description</mat-label>
     <textarea
-      id="description"
+      matInput
       name="description"
       [(ngModel)]="itemDescription"
     ></textarea>
-  </div>
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="imageLink">Image Link:</label>
-    <input
-      type="text"
-      id="imageLink"
-      name="imageLink"
-      [(ngModel)]="itemImageLink"
+  <mat-form-field class="form-group">
+    <mat-label>Image Link</mat-label>
+    <input matInput type="text" name="imageLink" [(ngModel)]="itemImageLink" />
+  </mat-form-field>
+
+  <!-- Image Preview -->
+  <div *ngIf="itemImageLink" class="image-preview">
+    <img
+      [src]="itemImageLink"
+      (error)="onImageError($event)"
+      (load)="onImageLoad($event)"
+      alt="Image preview"
+      class="item-image"
     />
   </div>
 
-  <button type="submit" *ngIf="!itemId">Create Item</button>
-  <button type="submit" *ngIf="itemId">Save changes</button>
+  <button mat-raised-button color="primary" type="submit" *ngIf="!itemId">
+    Create Item
+  </button>
+  <button mat-raised-button color="accent" type="submit" *ngIf="itemId">
+    Save changes
+  </button>
 </form>
