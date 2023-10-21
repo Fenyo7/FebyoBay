@@ -1,34 +1,41 @@
-.navbar {
+.landscape-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
-.navbar .navbar-left {
+.navbar-section {
   display: flex;
-  justify-content: left;
-}
-
-.navbar .navbar-right {
-  display: flex;
-  justify-content: right;
+  align-items: center;
 }
 
 button {
-  padding: 10px 20px;
-  background-color: #c0d7c1;
-  color: #333;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  margin-left: 20px;
-  transition: background-color 0.3s ease;
-  margin-right: 10px; /* Adjust this value to your liking */
+  padding: 10px 15px;
+  line-height: 1.5;
+  margin: 0 10px;
 }
 
-button:hover {
-  background-color: #869a87;
+mat-icon {
+  font-size: 24px;
+  vertical-align: top;
+}
+
+.portrait-container button mat-icon {
+  font-size: 24px;
+}
+
+.portrait-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.balance {
+  margin-right: 10px;
 }

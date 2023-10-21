@@ -18,7 +18,6 @@ public class UserController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _config;
     private readonly TokenService _tokenService;
-
     private readonly FortuneWheelService _fortuneWheelService;
 
     public UserController(

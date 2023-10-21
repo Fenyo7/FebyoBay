@@ -17,6 +17,7 @@ import { AccountComponent } from './components/account/account.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { FortuneWheelComponent } from './components/fortune-wheel/fortune-wheel.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FortuneWheelComponent } from './components/fortune-wheel/fortune-wheel.
       newestOnTop: true,
       tapToDismiss: true,
     }),
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
