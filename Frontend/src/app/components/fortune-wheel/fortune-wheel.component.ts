@@ -125,7 +125,6 @@ export class FortuneWheelComponent {
       this.userService.getBalance(Number(this.userId)).subscribe(
         (balance: number) => {
           this.userBalance = balance;
-          console.log(balance);
         },
         (error) => {
           console.error('Error fetching balance:', error);

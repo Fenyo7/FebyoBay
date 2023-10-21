@@ -1,4 +1,3 @@
-/* Parent container for the wheel and controls */
 .container {
   display: flex;
   justify-content: center;
@@ -7,40 +6,39 @@
   flex-wrap: wrap;
 }
 
-.wheel-container {
-  width: 60vh;
-  max-width: 100%;
-  padding-bottom: 60vh; /* This maintains the aspect ratio */
+.wheel-card {
+  width: 60vmin;
+  max-width: 1000px;
+  padding-bottom: 60vmin; 
   position: relative;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.wheel-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border: 2px solid #333;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
-  margin-bottom: 20px;
   user-select: none;
   pointer-events: none;
 }
 
-/* Media query for screens where width is less than height */
 @media (max-aspect-ratio: 1/1) {
-  .wheel-container {
-    width: 60vw;
-    padding-bottom: 60vw; /* Adjust padding for portrait mode */
-  }
-}
-
-/* Media query for smaller screens (e.g., mobile) */
-@media (max-width: 800px) {
   .container {
     flex-direction: column;
   }
 
-  .wheel-container {
+  .wheel-card {
+    width: 60vw;
+    padding-bottom: 60vw;
     margin-right: 0;
   }
 }
-
-/* ... rest of your CSS remains unchanged ... */
 
 .outer-wheel,
 .inner-wheel {
@@ -52,40 +50,13 @@
 }
 
 .controls {
-  flex: 1; /* Takes up the remaining space */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Aligns the controls to the left */
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  width: 250px; /* Adjust this value to your preference for wide mode */
+  align-items: center;
+  gap: 15px;
+  width: 250px;
 }
 
-.controls label,
-.controls input {
-  margin-bottom: 15px;
-  width: 200px; /* Adjust as needed */
-}
-
-.controls button {
-  width: 150px; /* Adjust as needed */
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-bottom: 10px; /* Spacing between buttons */
-}
-
-.controls button:hover {
-  background-color: #0056b3;
-}
-
-/* Wheel rotation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -96,50 +67,13 @@
 }
 
 .inner-wheel-spinning {
-  animation: spin 8s cubic-bezier(0.23, 1, 0.32, 1); /* Custom ease-out */
-}
-
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  width: 80%; /* Adjust as needed */
-  margin: 0 auto;
-}
-
-.controls label,
-.controls input,
-.controls button {
-  margin-bottom: 15px;
-  width: 100%;
+  animation: spin 8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .controls button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff; /* Adjust color as needed */
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  margin-bottom: 15px; 
 }
 
-.controls button:hover {
-  background-color: #0056b3; /* Adjust color as needed */
-}
-
-.controls button:disabled {
-  background-color: #c0c0c0; /* Greyed out background */
-  color: #888; /* Greyed out text */
-  cursor: not-allowed; /* Indicate non-interactivity */
-  opacity: 0.7; /* Slight transparency for a more "disabled" look */
-}
-
-.controls button:disabled {
-  /* ... existing styles ... */
-  pointer-events: none;
+.controls button:last-child {
+  margin-bottom: 0;
 }

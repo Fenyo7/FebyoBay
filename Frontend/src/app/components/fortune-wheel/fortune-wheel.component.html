@@ -1,24 +1,32 @@
 <app-header></app-header>
 
 <div class="container">
-  <div class="wheel-container">
-    <img
-      src="../../../assets/wheel-inner.png"
-      alt="Inner Wheel"
-      class="inner-wheel"
-    />
-    <img
-      src="../../../assets/wheel-outer.png"
-      alt="Outer Wheel"
-      class="outer-wheel"
-    />
-  </div>
+  <!-- Wheel Card -->
+  <mat-card class="wheel-card">
+    <div class="wheel-container">
+      <img
+        src="../../../assets/wheel-inner.png"
+        alt="Inner Wheel"
+        class="inner-wheel"
+      />
+      <img
+        src="../../../assets/wheel-outer.png"
+        alt="Outer Wheel"
+        class="outer-wheel"
+      />
+    </div>
+  </mat-card>
 
-  <div class="controls">
-    <label for="wagerAmount">Wager Amount:</label>
-    <input type="number" id="wagerAmount" [(ngModel)]="wagerAmount" min="0" />
+  <!-- Controls Card -->
+  <mat-card class="controls">
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Wager Amount</mat-label>
+        <input matInput type="number" [(ngModel)]="wagerAmount" min="0" />
+      </mat-form-field>
 
-    <button [disabled]="isSpinning" (click)="onSpinWheelClick()">Spin Wheel</button>
-    <button [disabled]="isSpinning" (click)="onRegainMoneyClick()">Gimme money!</button>
-  </div>
+      <button mat-raised-button color="primary" [disabled]="isSpinning" (click)="onSpinWheelClick()">Spin Wheel</button>
+      <button mat-raised-button color="accent" [disabled]="isSpinning" (click)="onRegainMoneyClick()">Gimme money!</button>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -17,7 +17,11 @@
     <!-- Right Side -->
     <div class="navbar-section">
       <div *ngIf="username">
-        <span class="balance">{{ formatPrice(balance) }}</span>
+        <!-- Balance Button with Icon -->
+        <button mat-button routerLink="/wheel">
+          <mat-icon>account_balance_wallet</mat-icon>
+          {{ formatPrice(balance) }}
+        </button>
         <button mat-button routerLink="/account">
           <mat-icon>account_circle</mat-icon> {{ username }}
         </button>
@@ -52,7 +56,8 @@
     <div class="navbar-section">
       <div *ngIf="username">
         <mat-menu #accountMenu="matMenu">
-          <button mat-menu-item disabled>
+          <!-- Balance Button with Icon in Menu -->
+          <button mat-menu-item routerLink="/wheel">
             <mat-icon>account_balance_wallet</mat-icon>
             {{ formatPrice(balance) }}
           </button>
