@@ -1,55 +1,50 @@
 <app-header></app-header>
 
-<div class="container">
-  <h1>Welcome to GreenBay!</h1>
-  <p>
-    GreenBay is a simple eBay clone where users can sign in to sell and buy
-    items. Explore a wide range of items available for sale, or list your own
-    items to reach potential buyers.
-  </p>
+<div class="container mat-typography">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Welcome to FenyoBay!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        FenyoBay is a simple eBay clone where users can sign in to sell and buy
+        items. Explore a wide range of items available for sale, or list your own
+        items to reach potential buyers.
+      </p>
+      <p>
+        First, you should register to the application, or log in if you're already a user! Then, you can look at each item, and buy them if 
+        you have enough money. You don't? Don't worry! You can always get more by magical means! You should just click on the button that displays your balance.
+        Gamble responsibly!
+      </p>
+      <p>
+        You can put an item up for sale as well, just click the "Sell an Item" button! Give it a name, a description and name a price.
+        Then, you should search for an image, and put the link in.
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-  <p>
-    First, you should register to the application, or log in if you're already a user! Then, you can look at each item, and buy them if 
-    you have enough money. You don't? Don't worry! You can always get more by magical means! You should just click on the button that displays your balance.
-    Gamble responsibly!
-  </p>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Features</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let feature of features">{{ feature }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 
-  <p>
-    You can put an item up for sale as well, just click the "Sell an Item" button! Give it a name, a description and name a price.
-    Then, you should search for an image, and put the link in. (Sometimes this can be a bit wonky. Try getting one from amazon :D)
-  </p>
-
-  <p>
-    I hope you have fun here, even if there's not much to do.
-  </p>
-
-  <h2>Features</h2>
-  <ul>
-    <li>Register to the application</li>
-    <li>Sign in to the application</li>
-    <li>Modify user data</li>
-    <li>Delete user account</li>
-    <li>Logout of the application</li>
-    <li>Create a sellable item</li>
-    <li>List existing sellable items</li>
-    <li>View a specific sellable item's details</li>
-    <li>Buy a sellable item</li>
-    <li>Edit a user's item</li>
-    <li>Delete a user's item</li>
-    <li>Fortune wheel to increase wealth</li>
-    <li>Backend integration tests</li>
-    <li>Backend unit tests</li>
-    <li>Frontend snapshot tests</li>
-    <li>Frontend & Backend CI</li>
-    <li>Deployed to Railway through CD</li>
-  </ul>
-
-  <h3>Technical Specifications</h3>
-  <p>
-    The application's backend is a JSON-based Web API, and the frontend is
-    developed using Angular. Authentication is secured using JWT tokens, and
-    data is stored in a relational database.
-  </p>
-
-  <p>This is a demo project made by Levente Fenyvesi, with love.</p>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Technical Specifications</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        The application's backend is a JSON-based Web API, and the frontend is
+        developed using Angular, with Angular Material. Authentication is secured using JWT tokens, and
+        data is stored in a relational database.
+      </p>
+      <p>This is a demo project made by Levente Fenyvesi, with love.</p>
+    </mat-card-content>
+  </mat-card>
 </div>
