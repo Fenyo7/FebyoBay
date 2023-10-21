@@ -41,7 +41,7 @@ import { MaterialModule } from './material/material.module';
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: 'toast-top-center',
+      positionClass: 'toast-center-center',
       preventDuplicates: true,
       progressBar: true,
       newestOnTop: true,
