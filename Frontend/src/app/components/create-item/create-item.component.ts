@@ -154,7 +154,7 @@ export class CreateItemComponent implements OnInit {
   
   onImageLoad(event: any): void {
     this.isValidImageLink = true;
-  }  
+  }
 
   // Obsolete image link validation
   /* isValidImageLink(link: string): boolean {

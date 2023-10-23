@@ -1,3 +1,12 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+
 .landscape-container {
   display: flex;
   justify-content: space-between;
@@ -8,6 +17,7 @@
 .navbar-section {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 button {
@@ -21,21 +31,13 @@ mat-icon {
   vertical-align: top;
 }
 
-.portrait-container button mat-icon {
-  font-size: 24px;
-}
-
 .portrait-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
+  align-items: center;
 }
 
 .spacer {
   flex: 1 1 auto;
-}
-
-.balance {
-  margin-right: 10px;
 }
